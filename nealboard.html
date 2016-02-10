@@ -4,8 +4,47 @@
     <meta charset="UTF-8">
     <title>Tic Tac Toe</title>
 </head>
-<body>
 
+    <script src="https://code.jquery.com/jquery-2.1.4.js"></script>
+<script>
+    $(document).ready(function(){
+        $(".box").click(function(){
+            clicked();
+        });
+    })
+    function clicked(){
+        console.log($(this).attr("id"));
+
+    }
+</script>
+
+<style>
+    body{
+        box-sizing: border-box;
+    }
+    .board{
+        width: 800px;
+        display: flex;
+        flex-flow: row wrap;
+    }
+    .box{
+        width: 33%;
+        height: 200px;
+        border: 1px solid black;
+    }
+</style>
+<body>
+    <div class="board">
+        <div id="00" class="box"></div>
+        <div id="01" class="box"></div>
+        <div id="02" class="box"></div>
+        <div id="10" class="box"></div>
+        <div id="11" class="box"></div>
+        <div id="12" class="box"></div>
+        <div id="20" class="box"></div>
+        <div id="21" class="box"></div>
+        <div id="22" class="box"></div>
+    </div>
 
 </body>
 </html>
