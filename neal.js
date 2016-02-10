@@ -36,6 +36,8 @@ function checkWin(){
 }
 
 
+
+
 //test board
 b = [["x","o","o"],["","x","o"],["x","x","x"]];
 console.log(checkWin());
