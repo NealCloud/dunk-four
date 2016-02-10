@@ -24,16 +24,18 @@ function vertical(board){
     }
     return false;
 }
-
-var winCheck = [vertical, vertical];
+//put in your function variable in here to test
+var winCheck = [vertical, vertical, vertical];
 
 function checkWin(){
     for(var i = 0; i < winCheck.length; i++){
         var a = winCheck[0](b);
-        if(a) return a;
+        if(a) return a + " WINS";
     }
     return false;
 }
 
-b = [["x","x","x"],["","",""],["x","x","x"]];
+
+//test board
+b = [["x","o","o"],["","x","o"],["x","x","x"]];
 console.log(checkWin());
