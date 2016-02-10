@@ -5,17 +5,50 @@
     <title>Tic Tac Toe</title>
 </head>
 
+
+
+
+
     <script src="https://code.jquery.com/jquery-2.1.4.js"></script>
+    <script src="neal.js"></script>
 <script>
     $(document).ready(function(){
         $(".box").click(function(){
-            clicked();
+            clicked(this);
         });
     })
-    function clicked(){
-        console.log($(this).attr("id"));
+    var player1 = true;
+    var currentMark = "x";
+    var currentSymbol = "x";
+    var player1mark = "x";
+    var player2mark = "o";
 
+    var board = [["","",""],["","",""],["","",""]];
+
+    function clicked(targ){
+        var id = $(targ).attr("id");
+        var row = id[0];
+        var col = id[1];
+        $(targ).text(currentSymbol);
+        board[row][col] = currentMark;
+        console.log(checkWin(board));
+        togglePlayerSymbols();
     }
+
+    function togglePlayerSymbols(){
+        if(player1){
+            currentMark = player2mark;
+            currentSymbol = player2mark;
+            player1 = false;
+        }
+        else{
+            currentMark = player1mark;
+            currentSymbol = player1mark;
+            player1 = true;
+        }
+    }
+
+
 </script>
 
 <style>
@@ -28,6 +61,8 @@
         flex-flow: row wrap;
     }
     .box{
+        text-align: center;
+        font-size: 80px;
         width: 33%;
         height: 200px;
         border: 1px solid black;

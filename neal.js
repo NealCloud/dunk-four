@@ -27,9 +27,9 @@ function vertical(board){
 //put in your function variable in here to test
 var winCheck = [vertical, vertical, vertical];
 
-function checkWin(){
+function checkWin(board){
     for(var i = 0; i < winCheck.length; i++){
-        var a = winCheck[0](b);
+        var a = winCheck[i](board);
         if(a) return a + " WINS";
     }
     return false;
@@ -40,4 +40,5 @@ function checkWin(){
 
 //test board
 b = [["x","o","o"],["","x","o"],["x","x","x"]];
-console.log(checkWin());
+var c = [["x","o","x"],["","x",""],["","","x"]];
+//console.log(checkWin(c));
