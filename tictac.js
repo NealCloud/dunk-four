@@ -18,7 +18,7 @@ var player1mark = "x";
 var player2mark = "o";
 // first board set to null after board function is made;
 var board = [["","",""],["","",""],["","",""]];
-
+var draw = 0;
 
 
 function createBoardArray(number){
