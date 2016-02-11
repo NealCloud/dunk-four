@@ -1,3 +1,20 @@
+function displayAlert(text, type){
+    var message = null;
+    if(type == "warn"){
+        message = $("#alert");
+        message.removeClass("success");
+        message.addClass("warning");
+    }
+    else{
+        message = $("#alert");
+        message.removeClass("warning");
+        message.addClass("success")
+    }
+    $("#alert h1").text(text);
+
+}
+
+
 function horizontal (board) {
     var x; var o;
     var bLen = board.length;
@@ -15,11 +32,15 @@ function horizontal (board) {
 
         }
         if(x == bLen){
-            return "X";
+            return "X is WINSSSS";
 
         }
         else if(o == bLen){
-            return "O";
+            return "O is the WINNARR";
+            $("#alert img").addClass("animate");
+            setTimeout(function(){
+                $("#alert img").removeClass("animate");
+            }, 1000);
         }
         else if (o == bLen - 1){
             displayAlert("OH NO PLAYER1 might win", "warn");
@@ -47,7 +68,7 @@ function vertical(board){
             return "X";
         }
         else if(o == bLen){
-            return "O";
+            return "O RULZ";
         }
     }
     return false;
@@ -133,22 +154,6 @@ var player2mark = "o";
 // first board set to null after board function is made;
 var board = [["","",""],["","",""],["","",""]];
 
-
-function displayAlert(text, type){
-    var message = null;
-    if(type == "warn"){
-        message = $("#alert");
-    }
-    else{
-        message = $("#win");
-    }
-
-    message.html(text);
-    message.show();
-    setTimeout(function(){
-        message.slideUp();
-    }, 1000)
-}
 
 function createBoardArray(number){
     var gameArray = [];
@@ -237,8 +242,6 @@ function createBoxes(num){
 
 $(document).ready(function(){
 //        A button to Start the Game
-    $("#alert").toggle();
-    $("#win").toggle();
     $("#start").click(function(){
         $('.board').html('');
         startGame(3); //change to take input value = to board size;

@@ -69,7 +69,6 @@
             background-size: cover;
         }
         .message{
-            font-size: 40px;
             background-size: 40px 40px;
             background-image: linear-gradient(135deg, rgba(255, 255, 255, .05) 25%, transparent 25%,
             transparent 50%, rgba(255, 255, 255, .05) 50%, rgba(255, 255, 255, .05) 75%,
@@ -79,8 +78,8 @@
             border: 1px solid;
             color: #000000;
             padding: 15px;
-            position: fixed;
-            _position: absolute;
+            /*position: fixed;*/
+            /*_position: absolute;*/
             text-shadow: 0 1px 0 rgba(0,0,0,.5);
             animation: popup 5s linear infinite;
         }
@@ -100,7 +99,20 @@
                 background-position: -80px 0;
             }
         }
-
+        .animate{
+            animation-duration: .1s;
+            animation-name: spin;
+            animation-iteration-count: infinite;
+        }
+        #alert img{
+            position: absolute;
+            right: 5%;
+        }
+        @keyframes spin{
+            0%{transform: rotate(0deg)}
+            50%{transform:rotate(20deg)}
+            100%{transform:rotate(0deg)}
+        }
 
     </style>
 
@@ -137,8 +149,7 @@
             <div class="value"></div>
         </div>
         <button id="start" type="submit">Start</button>
-        <div id="alert" class="warning message">Warning Player 2</div>
-        <div id="win" class="success message"></div>
+
     </div>
 
     <div class="board">
@@ -152,6 +163,9 @@
         <!--<div id="21" class="box"></div>-->
         <!--<div id="22" class="box"></div>-->
     </div>
+
+
+    <div id="alert" class="success message"><img src="images/reporter.png" alt=""><h1>Texst HEre</h1></div>
 </div>
 </body>
 </html>
