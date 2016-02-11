@@ -44,15 +44,13 @@ function clicked(targ) {
     console.log("clicked " + targ);
 //        splits id into row and column according to array position
     //    calls the function checkClicked to see if a box was already clicked
-    if ($(targ).html()) {
+    if (!$(targ).html()) {
         currentBox = targ;
         createShotAttempt();
         // return true if there is already text in the box
     }
     else {
-        currentBox = targ;
-        createShotAttempt();
-        console.log("failed");
+        console.log("filled");
         return;
     }
 }
@@ -83,7 +81,8 @@ function togglePlayerSymbols(){
         currentMark = player2mark;
         currentSymbol = player2Symbol;
         player1turn = false;
-        $('.home').html();
+        $('.away').removeClass('current_team');
+        $('.home').addClass('current_team');
     }
 //        must be players 2 turn
     else{
@@ -91,6 +90,9 @@ function togglePlayerSymbols(){
         currentMark = player1mark;
         currentSymbol = player1Symbol;
         player1turn = true;
+        $('.home').removeClass('current_team');
+        $('.away').addClass('current_team');
+
     }
 }
 
@@ -118,6 +120,7 @@ $(document).ready(function(){
 //        A button to Start the Game
     $("#start").click(function(){
         $('.board').html('');
+        $('.away .home').removeClass('current_team');
         startGame(3); //change to take input value = to board size;
     });
     $("#shot").click(function(){
