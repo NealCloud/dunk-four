@@ -1,16 +1,14 @@
+//holds modal hiding
 function modalActive(){
     var modal = $("#mode0" );
-    var span = $(".close");
-    modal.css("display" , "block");
-
-    $(span).click(function() {
-        close();
-    });
-    function close(){
+    if ( modal.is( ":hidden" ) ) {
+        modal.css( "display", "block" );
+    }
+    else{
         modal.css( "display", "none");
     }
 }
-
+//takes in the text color and sound to display;
 function displayAlert(text, type, sound){
     var message = null;
     if(type == "warn"){

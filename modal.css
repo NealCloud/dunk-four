@@ -59,3 +59,101 @@
     background-color: #162929;
     color: white;
 }
+
+.message{
+    background-size: 40px 40px;
+    background-image: linear-gradient(135deg, rgba(255, 255, 255, .05) 25%, transparent 25%,
+    transparent 50%, rgba(255, 255, 255, .05) 50%, rgba(255, 255, 255, .05) 75%,
+    transparent 75%, transparent);
+    box-shadow: inset 0 -1px 0 rgba(255,255,255,.4);
+    width: 100%;
+    border: 1px solid;
+    color: #000000;
+    padding: 15px;
+    /*position: fixed;*/
+    position: absolute;
+    text-shadow: 0 1px 0 rgba(0,0,0,.5);
+    animation: popup 5s linear infinite;
+}
+.warning{
+    background-color: #eaaf51;
+    border-color: #d99a36;
+}
+.success{
+    background-color: #61b832;
+    border-color: #55a12c;
+}
+@keyframes popup {
+    from {
+        background-position: 0 0;
+    }
+    to {
+        background-position: -80px 0;
+    }
+}
+.animate{
+    animation-duration: .1s;
+    animation-name: spin;
+    animation-iteration-count: infinite;
+}
+#alert img{
+    position: absolute;
+    right: 5%;
+}
+#crowd img{
+    position: absolute;
+    width: 90%;
+    top: -300px;
+
+}
+#crowd2 img{
+    position: absolute;
+    width: 90%;
+    top: -75px;
+
+}
+#crowd2{
+    position: relative;
+    top: 400px;
+    transform: scale(1.5, 1.5);
+}
+#crowd {
+    left: 200px;
+    top: -25px;
+    transform: scaleX(-1);
+    position: relative;
+}
+
+#backc{
+    animation: spin .75s ease-in infinite;
+
+}
+#frontc{
+    animation: spin .5s ease-out infinite;
+}
+
+@keyframes spin{
+    0%{transform: rotate(0deg);top:0px;}
+    50%{transform:rotate(1deg);top:20px;}
+    100%{transform:rotate(0deg);top:0px;}
+}
+.lights{
+    background-image: linear-gradient(135deg, rgba(255, 255, 255, .05) 25%, transparent 25%,
+    transparent 50%, rgba(130,46,119,0.24) 50%, rgba(255, 255, 255, .05) 75%,
+    transparent 75%, transparent);
+    width: 100%;
+    color: #000000;
+    padding: 15px;
+    /*position: fixed;*/
+    position: absolute;
+    text-shadow: 0 1px 0 rgba(0,0,0,.5);
+    animation: lights 3s linear infinite alternate;
+}
+@keyframes lights {
+    from {
+        background-position: 0 0;
+    }
+    to {
+        background-position: 880px 0;
+    }
+}
