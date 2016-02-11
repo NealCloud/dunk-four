@@ -1,4 +1,20 @@
-function displayAlert(text, type){
+function modalActive(){
+    var modal = $("#mode0" );
+    var span = $(".close");
+    modal.css("display" , "block");
+
+    $(span).click(function() {
+        close();
+    });
+    function close(){
+        modal.css( "display", "none");
+    }
+}
+
+
+
+
+function displayAlert(text, type, sound){
     var message = null;
     if(type == "warn"){
         message = $("#alert");
@@ -10,9 +26,57 @@ function displayAlert(text, type){
         message.removeClass("warning");
         message.addClass("success")
     }
+    if(sound){
+        sound.play();
+    }
     $("#alert h1").text(text);
-
 }
+
+
+
+
+function winAnimation(){
+    $("#alert").slideUp("slow");
+    $("#crowd").html("<audio autoplay loop><source src='audio/readyforthis.mp3' type='audio/mpeg'></audio>");
+
+    setTimeout(function(){
+        var img = $('<div>',{
+            html: "<image id='backc' src='Images/crowd2.png'><image id='frontc' src='Images/crowd1.png'>"
+        })
+        var img2 = $('<div>',{
+            html: "<image id='backc' src='Images/crowd2.png'><image id='frontc' src='Images/crowd1.png'>"
+        })
+        $("#crowd").append(img);
+        $("#crowd2").append(img2);
+        $(".board").css("height", "67vh");
+        $(".board").addClass("lights");
+    }, 2000)
+}
+function createShotAttempt(){
+    var random = Math.floor(Math.random()* 5 );
+    var shotTarget = $('<div>');
+
+
+    // css
+    // position: absolute:
+    // bor
+    var shotAimer = $('<div>')
+
+    //css pos:aobsolute, display: inline-lbock, same width height 50 border animtion: move 2s linear 1s infinite alaternate;
+    //@keyframes move {9% {left:0px;} 100% {left:400px;}}
+    //append to shotbox
+    var shotbox = $('<div>',{
+        class: ".backboard",
+    })
+    //css border, height and width prolly 300px
+    //append to a modal
+}
+function shotMade(hit){    //
+
+    var shot = $("#shot").offset();
+   // if shot > hit + 10 etc...
+}
+
 
 
 function horizontal (board) {
@@ -192,6 +256,7 @@ function clicked(targ) {
     if (checkWin(board)) {
         $('.board').html('YOU WIN');
         displayAlert(checkWin(board), "win");
+        winAnimation();
 
     }
 //        switch the symbols for player turn;
