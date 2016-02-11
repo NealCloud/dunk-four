@@ -1,125 +1,16 @@
 //horizontal function
 
-function horizontal (board) {
-    var x; var o;
-    var bLen = board.length;
 
-    for(var i = 0; i < bLen ; i++){
-        x = 0;
-        o = 0;
-        for(var j = 0; j < bLen ; j++ ){
-            if (board[i][j] == "x"){
-                x += 1;
-            }
-            else if (board[i][j] == "o"){
-                o += 1;
-            }
-
-        }
-        if(x == bLen){
-            return "X";
-
-        }
-        else if(o == bLen){
-            return "O";
-        }
-
-    }
-    return false;
-}
-
-function vertical(board){
-    var x; var o;
-    var bLen = board.length;
-    for(var i = 0;i < bLen; i++){
-        x = 0;
-        o = 0;
-        for(var j = 0; j < bLen; j++){
-            if(board[j][i] == "x"){
-                x += 1;
-            }
-            else if(board[j][i] == "o"){
-                o += 1;
-            }
-        }
-        if(x == bLen){
-            return "X";
-        }
-        else if(o == bLen){
-            return "O";
-        }
-    }
-    return false;
-}
-
-function leftToRightDiagonal(array) {
-    var counterX = 0;
-    var counterO = 0;
-    for (var i = 0; i < 1; i++) {
-        for (var j = 0; j < array.length; j++) {
-            if (array[i + j][j] == "x") {
-                counterX++;
-            }
-            else if(array[i + j][j] == "o"){
-                counterO++;
-            }
-        }
-    }
-
-    if(counterO == array.length){
-        return("O wins");
-    }
-    else if(counterX == array.length){
-        return("X wins");
-    }
-    else{
-        return false;
-    }
-}
-
-function rightToLeftDiagonal(array) {
-    var counterX = 0;
-    var counterO = 0;
-    for (var i = array.length - 1; i < array.length; i++) {
-        for (var j = 0; j < array.length; j++) {
-            if(array[i - j][j] == "o") {
-                counterO++;
-            }
-            else if(array[i - j][j] == "x"){
-                counterX++;
-            }
-        }
-    }
-    if(counterO == array.length){
-       return("O wins");
-    }
-    else if(counterX == array.length){
-        return("X wins");
-    }else{
-        return false;
-    }
-}
-
-
-var winConditions = [vertical, horizontal, rightToLeftDiagonal, leftToRightDiagonal];
-
-function checkWin(){
-    for(var i = 0; i < winConditions.length; i++){
-        var a = winConditions[i](board);
-        if(a) return a + i;
-    }
-    return false;
-}
 
 
 //    global variables
-//    player1 turn is on
-var player1 = true;
+//    player1turn turn is on
+var player1turn = true;
 //    the current mark made default x;
 var currentMark = "x";
 //    the current Symbol used;
 var currentSymbol = "x";
-//    player1's mark;
+//    player1turn's mark;
 var player1mark = "x";
 //    player2's mark;
 var player2mark = "o";
@@ -165,18 +56,18 @@ function clicked(targ){
 
 function togglePlayerSymbols(){
 //        if player 1 turn
-    if(player1){
+    if(player1turn){
 //            set current mark and symbol to player2 and toggle player boolean
         currentMark = player2mark;
         currentSymbol = player2mark;
-        player1 = false;
+        player1turn = false;
     }
 //        must be players 2 turn
     else{
 //            switch back current mark/symbol to player 1 and toggle player boolean;
         currentMark = player1mark;
         currentSymbol = player1mark;
-        player1 = true;
+        player1turn = true;
     }
 }
 
@@ -198,6 +89,7 @@ function createBoxes(num){
 $(document).ready(function(){
 //        A button to Start the Game
     $("#start").click(function(){
+        $('.board').html('');
         startGame(3); //change to take input value = to board size;
     })
 })
