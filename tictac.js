@@ -1,6 +1,5 @@
 //horizontal function
 
-
 function horizontal (board) {
     var x; var o;
     var bLen = board.length;
@@ -28,9 +27,6 @@ function horizontal (board) {
     }
     return false;
 }
-
-
-
 
 function vertical(board){
     var x; var o;
@@ -105,15 +101,114 @@ function rightToLeftDiagonal(array) {
 }
 
 
-var winCheck = [vertical, horizontal, rightToLeftDiagonal, leftToRightDiagonal];
+var winConditions = [vertical, horizontal, rightToLeftDiagonal, leftToRightDiagonal];
 
 function checkWin(){
-    for(var i = 0; i < winCheck.length; i++){
-        var a = winCheck[i](b);
+    for(var i = 0; i < winConditions.length; i++){
+        var a = winConditions[i](board);
         if(a) return a + i;
     }
     return false;
 }
 
-b = [["o","","x"],["o","x",""],["x","x","o"]];
-console.log(checkWin());
+
+//    global variables
+//    player1 turn is on
+var player1 = true;
+//    the current mark made default x;
+var currentMark = "x";
+//    the current Symbol used;
+var currentSymbol = "x";
+//    player1's mark;
+var player1mark = "x";
+//    player2's mark;
+var player2mark = "o";
+// first board set to null after board function is made;
+var board = [["","",""],["","",""],["","",""]];
+
+
+function createBoardArray(number){
+    var gameArray = [];
+
+    for (var i = 0; i < number; i++) {
+        var pushArray = [];
+        //gameArray.push(pushArray);
+        for(var j = 0; j < number; j++) {
+
+            pushArray.push("");
+        }
+
+        gameArray.push(pushArray);
+    }
+    return gameArray;
+}
+
+// click the box function
+function clicked(targ){
+//        takes element clicked id
+    console.log("clicked " + targ);
+    var id = $(targ).attr("id");
+//        splits id into row and column according to array position
+    var row = id[0];
+    var col = id[1];
+//        use the currentSymbol the mark the box
+    $(targ).text(currentSymbol);
+//        set the board to row and column in array;
+    board[row][col] = currentMark;
+//        console the win check
+    console.log("board value: " + board[row][col]);
+    console.log(checkWin(board));
+//        switch the symbols for player turn;
+    togglePlayerSymbols();
+}
+
+
+function togglePlayerSymbols(){
+//        if player 1 turn
+    if(player1){
+//            set current mark and symbol to player2 and toggle player boolean
+        currentMark = player2mark;
+        currentSymbol = player2mark;
+        player1 = false;
+    }
+//        must be players 2 turn
+    else{
+//            switch back current mark/symbol to player 1 and toggle player boolean;
+        currentMark = player1mark;
+        currentSymbol = player1mark;
+        player1 = true;
+    }
+}
+
+function createBoxes(num){
+//        creates the boxes in html depending on number
+    for(var i = 0; i < num; i++){
+        for(var j = 0; j < num; j++){
+//                creates a box element with an id equal to its row and column in the board array;
+            var box = $("<div>",{
+                id: i + "" + j,
+                class: "box"
+            })
+//                append the box element to the game board
+            $(box).appendTo(".board");
+        }
+    }
+}
+
+$(document).ready(function(){
+//        A button to Start the Game
+    $("#start").click(function(){
+        startGame(3); //change to take input value = to board size;
+    })
+})
+
+//    starts the game take in a number
+function startGame(num){
+//        creates number of div boxes and a board array;
+    createBoxes(num);
+    board = createBoardArray(num);  //placeholder for board array create
+//assing a click handler to each box to activate the click function;
+    $(".box").click(function(){
+        clicked(this);
+    });
+}

@@ -66,49 +66,10 @@
 
     </style>
 
-    <script></script>
+    <script src="https://code.jquery.com/jquery-2.1.4.js"></script>
+    <script src="tictac.js"></script>
+
 </head>
-<script src="https://code.jquery.com/jquery-2.1.4.js"></script>
-<script src="tictac.js"></script>
-<script>
-    $(document).ready(function(){
-        $(".box").click(function(){
-            clicked(this);
-        });
-    })
-    var player1 = true;
-    var currentMark = "x";
-    var currentSymbol = "x";
-    var player1mark = "x";
-    var player2mark = "o";
-
-    var board = [["","",""],["","",""],["","",""]];
-
-    function clicked(targ){
-        var id = $(targ).attr("id");
-        var row = id[0];
-        var col = id[1];
-        $(targ).text(currentSymbol);
-        board[row][col] = currentMark;
-        console.log(checkWin(board));
-        togglePlayerSymbols();
-    }
-
-    function togglePlayerSymbols(){
-        if(player1){
-            currentMark = player2mark;
-            currentSymbol = player2mark;
-            player1 = false;
-        }
-        else{
-            currentMark = player1mark;
-            currentSymbol = player1mark;
-            player1 = true;
-        }
-    }
-
-
-</script>
 
 <body>
 
@@ -137,18 +98,18 @@
             <div class="label">Away Team</div>
             <div class="value"></div>
         </div>
-        <button class="reset" type="submit">Play Again</button>
+        <button id="start" type="submit">Start</button>
     </div>
     <div class="board">
-        <div id="00" class="box"></div>
-        <div id="01" class="box"></div>
-        <div id="02" class="box"></div>
-        <div id="10" class="box"></div>
-        <div id="11" class="box"></div>
-        <div id="12" class="box"></div>
-        <div id="20" class="box"></div>
-        <div id="21" class="box"></div>
-        <div id="22" class="box"></div>
+        <!--<div id="00" class="box"></div>-->
+        <!--<div id="01" class="box"></div>-->
+        <!--<div id="02" class="box"></div>-->
+        <!--<div id="10" class="box"></div>-->
+        <!--<div id="11" class="box"></div>-->
+        <!--<div id="12" class="box"></div>-->
+        <!--<div id="20" class="box"></div>-->
+        <!--<div id="21" class="box"></div>-->
+        <!--<div id="22" class="box"></div>-->
     </div>
 </div>
 </body>
