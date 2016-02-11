@@ -1,3 +1,16 @@
+function modalActive(){
+    var modal = $("#mode0" );
+    var span = $(".close");
+    modal.css("display" , "block");
+
+    $(span).click(function() {
+        close();
+    });
+    function close(){
+        modal.css( "display", "none");
+    }
+}
+
 //horizontal function
 
 
@@ -9,8 +22,7 @@ var player1turn = true;
 //    the current mark made default x;
 var currentMark = "x";
 //    the current Symbol used;
-var currentSymbol = "<img src='Images/bball.png'>";
-var player1Symbol = "<img src='Images/bball.png'>";
+var currentSymbol = "x";
 //    player1turn's mark;
 var player1mark = "x";
 //    player2's mark;
@@ -38,6 +50,10 @@ function createBoardArray(number){
 // click the box function
 function clicked(targ) {
 //        takes element clicked id
+    modalActive();
+    $("#shootButton").click(function(){
+        $("#playingBall").addClass("shootTheBall");
+    });
     console.log("clicked " + targ);
     var id = $(targ).attr("id");
 //        splits id into row and column according to array position
@@ -112,19 +128,9 @@ $(document).ready(function(){
 //        A button to Start the Game
     $("#start").click(function(){
         $('.board').html('');
-
-
-        /******* ADD This ****/////////
-        var boardNumber = prompt("Please enter your board size: 3,4,5 "); // prompts user for number
-        console.log(boardNumber);
-        while(boardNumber > 5 || boardNumber < 3){
-            boardNumber = prompt("Incorrect board size: Only 3,4,5 avaiable "); // if incorrect input do it again
-        }
-        startGame(boardNumber);  //change to take input value = to board size;
-        //**************************************/////////
-    });
-});
-
+        startGame(3); //change to take input value = to board size;
+    })
+})
 
 //    starts the game take in a number
 function startGame(num){
