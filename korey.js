@@ -112,12 +112,16 @@ $(document).ready(function(){
 //        A button to Start the Game
     $("#start").click(function(){
         $('.board').html('');
-        var boardNumber = prompt("Please enter your board size: 3,4,5 ");
+
+
+        /******* ADD This ****/////////
+        var boardNumber = prompt("Please enter your board size: 3,4,5 "); // prompts user for number
         console.log(boardNumber);
         while(boardNumber > 5 || boardNumber < 3){
-            boardNumber = prompt("Incorrect board size: Only 3,4,5 avaiable ");
+            boardNumber = prompt("Incorrect board size: Only 3,4,5 avaiable "); // if incorrect input do it again
         }
         startGame(boardNumber);  //change to take input value = to board size;
+        //**************************************/////////
     });
 });
 
