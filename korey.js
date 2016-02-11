@@ -203,11 +203,17 @@ function createBoxes(num){
             var box = $("<div>",{
                 id: i + "" + j,
                 class: "box"
-            })
+            });
+            boxDimensions(num,box);
 //                append the box element to the game board
             $(box).appendTo(".board");
         }
     }
+}
+
+function boxDimensions(number,box){
+    var size = (parseInt(100/number) -.4) + "%";
+    box.css({"width":size,"height":size});
 }
 
 $(document).ready(function(){
@@ -215,7 +221,7 @@ $(document).ready(function(){
     $("#start").click(function(){
         startGame(3); //change to take input value = to board size;
     })
-})
+});
 
 //    starts the game take in a number
 function startGame(num){
