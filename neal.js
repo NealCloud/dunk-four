@@ -11,9 +11,6 @@ function modalActive(){
     }
 }
 
-
-
-
 function displayAlert(text, type, sound){
     var message = null;
     if(type == "warn"){
@@ -32,9 +29,6 @@ function displayAlert(text, type, sound){
     $("#alert h1").text(text);
 }
 
-
-
-
 function winAnimation(){
     $("#alert").slideUp("slow");
     $("#crowd").html("<audio autoplay loop><source src='audio/readyforthis.mp3' type='audio/mpeg'></audio>");
@@ -52,29 +46,50 @@ function winAnimation(){
         $(".board").addClass("lights");
     }, 2000)
 }
+
 function createShotAttempt(){
-    var random = Math.floor(Math.random()* 5 );
-    var shotTarget = $('<div>');
+    modalActive();
+    var shotTarget = $('<div>',{
+        class: "target"
+    });
+    var shotAimer = $('<div>',{
+        class: "aimer"
+    });
 
-
-    // css
-    // position: absolute:
-    // bor
-    var shotAimer = $('<div>')
-
-    //css pos:aobsolute, display: inline-lbock, same width height 50 border animtion: move 2s linear 1s infinite alaternate;
-    //@keyframes move {9% {left:0px;} 100% {left:400px;}}
-    //append to shotbox
     var shotbox = $('<div>',{
-        class: ".backboard",
-    })
-    //css border, height and width prolly 300px
-    //append to a modal
-}
-function shotMade(hit){    //
+        class: "backboard",
+    });
 
-    var shot = $("#shot").offset();
-   // if shot > hit + 10 etc...
+    shotbox.append(shotTarget, shotAimer);
+    shotbox.appendTo(".modal-footer");
+
+    //create random number and apply to
+    var random = Math.floor(Math.random()* 400);
+    $(".target").css("left", random + "px");
+
+}
+function shotMade(hit){
+    //the range is 86 - 475
+    var target = $(".target").offset();
+
+    var accuracy = Math.abs(hit - target.left);
+    console.log(hit, target.left);
+    console.log(accuracy);
+
+    //test case
+    if(accuracy < 50){
+        randomAlert();
+    }
+
+}
+var boom = new Audio("audio/boomshaka.mp3");
+var downtown = new Audio("audio/downtown.mp3");
+var onfire = new Audio("audio/onfire.mp3");
+var alert = [["Boomshakala",boom],["From DOWNTOWN", downtown],["He's on fire", onfire]];
+
+function randomAlert(){
+    var r = Math.floor(Math.random()* alert.length);
+    displayAlert(alert[r][0],"warn", alert[r][1]);
 }
 
 
@@ -310,6 +325,11 @@ $(document).ready(function(){
     $("#start").click(function(){
         $('.board').html('');
         startGame(3); //change to take input value = to board size;
+    })
+
+    $("#shot").click(function(){
+        var num = $(".aimer").offset();
+        shotMade(num.left);
     })
 })
 
