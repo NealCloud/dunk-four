@@ -80,6 +80,10 @@ function shotMade(hit){
     //test case
     if(accuracy < 50){
         randomAlert();
+        modalActive();
+    }
+    else{
+        modalActive();
     }
 
 }
@@ -271,6 +275,8 @@ function clicked(targ) {
 // This function checks to see if the a clicked box has been clicked
 function checkClicked(targ){
     if($(targ).html()){
+        createShotAttempt();
+
         return true; // return true if there is already text in the box
     }
     else{
