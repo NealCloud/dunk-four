@@ -18,7 +18,6 @@ var player1mark = "x";
 var player2mark = "o";
 // first board set to null after board function is made;
 var board = [["","",""],["","",""],["","",""]];
-var imgArray = ['Images/bball.png', 'Images/ABAball.png'];
 
 
 
@@ -59,6 +58,7 @@ function clicked(targ) {
     console.log("board value: " + board[row][col]);
     if (checkWin(board)) {
         $('.board').html('YOU WIN');
+        winAnimation();
     }
 //        switch the symbols for player turn;
         togglePlayerSymbols();
@@ -116,6 +116,10 @@ $(document).ready(function(){
     $("#start").click(function(){
         $('.board').html('');
         startGame(3); //change to take input value = to board size;
+    })
+    $("#shot").click(function(){
+        var num =$('.aimer').offset();
+        shotMade(num.left);
     })
 })
 
