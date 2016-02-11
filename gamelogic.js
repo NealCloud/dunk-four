@@ -46,7 +46,12 @@ function winAnimation(){
 }
 
 function createShotAttempt(){
+
     modalActive();
+    $("#playingBall").removeClass("tooShort");
+    $("#playingBall").removeClass("swish");
+    $("#shot").show();
+    $(".modal-footer").html("");
     var shotTarget = $('<div>',{
         class: "target"
     });
@@ -65,11 +70,12 @@ function createShotAttempt(){
     var random = Math.floor(Math.random()* 400);
     $(".target").css("left", random + "px");
 
+
 }
 function shotMade(hit){
+    $("#shot").hide();
     //the range is 86 - 475
     var target = $(".target").offset();
-
     var accuracy = Math.abs(hit - target.left);
     console.log(hit, target.left);
     console.log(accuracy);
@@ -77,6 +83,19 @@ function shotMade(hit){
     //test case
     if(accuracy < 50){
         randomAlert();
+        $("#playingBall").addClass("swish");
+        setTimeout(function(){
+            shotSuccess(currentBox);
+            modalActive();
+            return;
+        }, 2000)
+    }
+    else{
+        $("#playingBall").addClass("tooShort");
+        setTimeout(function(){
+            modalActive();
+            return;
+        }, 2000)
     }
 
 }

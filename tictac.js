@@ -20,6 +20,7 @@ var player2mark = "o";
 var board = [["","",""],["","",""],["","",""]];
 var draw = 0;
 
+var currentBox;
 
 function createBoardArray(number){
     var gameArray = [];
@@ -41,12 +42,22 @@ function createBoardArray(number){
 function clicked(targ) {
 //        takes element clicked id
     console.log("clicked " + targ);
-    var id = $(targ).attr("id");
 //        splits id into row and column according to array position
     //    calls the function checkClicked to see if a box was already clicked
-    if (checkClicked(targ)) {
+    if ($(targ).html()) {
+        currentBox = targ;
+        createShotAttempt();
+        // return true if there is already text in the box
+    }
+    else {
+        currentBox = targ;
+        createShotAttempt();
+        console.log("failed");
         return;
     }
+}
+function shotSuccess(targ){
+    var id = $(targ).attr("id");
     var row = id[0];
     var col = id[1];
 //        use the currentSymbol the mark the box
@@ -56,29 +67,14 @@ function clicked(targ) {
     board[row][col] = currentMark;
 //        console the win check
     console.log("board value: " + board[row][col]);
-    draw++
-    if (draw === 9){
-        draw = 0;
-        $('.board').html('TIE GAME');
-        return;
-    }
     if (checkWin(board)) {
         $('.board').html('YOU WIN');
         winAnimation();
     }
 //        switch the symbols for player turn;
-        togglePlayerSymbols();
-    }
-
-// This function checks to see if the a clicked box has been clicked
-function checkClicked(targ){
-    if($(targ).html()){
-        return true; // return true if there is already text in the box
-    }
-    else{
-        return false;
-    }
+    togglePlayerSymbols();
 }
+
 
 function togglePlayerSymbols(){
 //        if player 1 turn
