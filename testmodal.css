@@ -68,6 +68,7 @@
     position:relative;
     left:45%;
     width:7%;
+    top:10%;
     height:10%;
 
 
@@ -110,53 +111,80 @@
     /*animation-timing-function:linear;*/
 }
 
-
-.shootTheBall{
-    animation-name: shoot;
+/* made basket animation*/
+.swish{
+    animation-name: score;
     animation-duration:2.5s;
     animation-timing-function:linear;
 }
 
-/*#playingBall:hover{*/
-    /*animation-name: shoot;*/
-    /*animation-duration:2.5s;*/
-    /*animation-timing-function:linear;*/
-/*}*/
+/* tooFar basket animation*/
+.tooFar{
+    animation-name: long;
+    animation-duration:2.5s;
+    animation-timing-function:linear;
+}
 
+/* tooShort basket animation*/
+.tooShort{
+    animation-name: short;
+    animation-duration:2.5s;
+    animation-timing-function:linear;
+}
+
+/* button*/
 #shoot{
     position:absolute;
-
-
 }
 
-/*
-#ball:active {
-  transform:scale(0);
-}
-*/
-
-/*@keyframes net{*/
-
-    /*99%{*/
-        /*transform:rotate(0deg)*/
-    /*}*/
-    /*100%{*/
-        /*transform:rotate(100deg);*/
-    /*}*/
-/*}*/
-
-@keyframes shoot {
+/*Keyframes for the 3 different scenarios */
+@keyframes score {
     0%{
         top:70%;
     }
     80% {
-        top: -10%;
+        top: 0%;
         width: 2%;
         height: auto;
         left:47%;
     }
     100% {
-        top: 0%;
+        top: 5%;
+        width: 2%;
+        height: auto;
+        left:47.5%;
+    }
+}
+@keyframes long {
+     0%{
+         top:70%;
+     }
+     80% {
+         top: -10%;
+         width: 2%;
+         height: auto;
+         left:47%;
+     }
+     100% {
+         top: -5%;
+         width: 2%;
+         height: auto;
+         left:47.5%;
+     }
+ }
+
+@keyframes short {
+    0%{
+        top:70%;
+    }
+    80% {
+        top: 10%;
+        width: 2%;
+        height: auto;
+        left:47%;
+    }
+    100% {
+        top: 15%;
         width: 2%;
         height: auto;
         left:47.5%;
