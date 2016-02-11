@@ -49,10 +49,14 @@ function createBoardArray(number){
 
 // click the box function
 function clicked(targ) {
+
+    // removes class so animation doesn't occur beofre they click
+    $("#playingBall").removeClass("tooShort");
 //        takes element clicked id
     modalActive();
+    // clicks button to create the animation
     $("#shootButton").click(function(){
-        $("#playingBall").addClass("shootTheBall");
+        $("#playingBall").addClass("tooShort");
     });
     console.log("clicked " + targ);
     var id = $(targ).attr("id");
