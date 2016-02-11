@@ -26,7 +26,6 @@
             font-size: 16px;
             color: white;
             padding:.1%;
-
         }
 
         header ul li {
@@ -52,6 +51,7 @@
             box-sizing: border-box;
         }
         .board{
+            height: 80vh;
             width: 800px;
             display: flex;
             flex-flow: row wrap;
@@ -79,7 +79,7 @@
             color: #000000;
             padding: 15px;
             /*position: fixed;*/
-            /*_position: absolute;*/
+            position: absolute;
             text-shadow: 0 1px 0 rgba(0,0,0,.5);
             animation: popup 5s linear infinite;
         }
@@ -108,10 +108,122 @@
             position: absolute;
             right: 5%;
         }
+        #crowd img{
+            position: absolute;
+            width: 90%;
+            top: -300px;
+
+        }
+        #crowd2 img{
+            position: absolute;
+            width: 90%;
+            top: -75px;
+
+        }
+        #crowd2{
+            position: relative;
+            top: 400px;
+            transform: scale(1.5, 1.5);
+        }
+        #crowd {
+            left: 200px;
+            top: -25px;
+            transform: scaleX(-1);
+            position: relative;
+        }
+
+        #backc{
+            animation: spin .75s ease-in infinite;
+
+        }
+        #frontc{
+            animation: spin .5s ease-out infinite;
+        }
+
         @keyframes spin{
-            0%{transform: rotate(0deg)}
-            50%{transform:rotate(20deg)}
-            100%{transform:rotate(0deg)}
+            0%{transform: rotate(0deg);top:0px;}
+            50%{transform:rotate(1deg);top:20px;}
+            100%{transform:rotate(0deg);top:0px;}
+        }
+        .lights{
+            background-image: linear-gradient(135deg, rgba(255, 255, 255, .05) 25%, transparent 25%,
+            transparent 50%, rgba(130,46,119,0.24) 50%, rgba(255, 255, 255, .05) 75%,
+            transparent 75%, transparent);
+            width: 100%;
+            color: #000000;
+            padding: 15px;
+            /*position: fixed;*/
+            position: absolute;
+            text-shadow: 0 1px 0 rgba(0,0,0,.5);
+            animation: lights 3s linear infinite alternate;
+        }
+        @keyframes lights {
+            from {
+                background-position: 0 0;
+            }
+            to {
+                background-position: 880px 0;
+            }
+        }
+
+        .modal {
+            display: none; /* Hidden by default */
+            position: fixed; /* Stay in place */
+            z-index: 1; /* Sit on top */
+            padding-top: 100px; /* Location of the box */
+            left: 0;
+            top: 0;
+            width: 100%; /* Full width */
+            height: 100%; /* Full height */
+            overflow: auto; /* Enable scroll if needed */
+            background-color: rgb(0,0,0); /* Fallback color */
+            background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+        }
+        /* Modal Content */
+        .modal-content {
+            position: relative;
+            background-color: #51684D;
+            margin: auto;
+            padding: 0;
+            border: 1px solid #888;
+            width: 80%;
+            box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
+            -webkit-animation-name: animatetop;
+            -webkit-animation-duration: 0.4s;
+            animation-name: animatetop;
+            animation-duration: 0.4s
+        }
+        /* Add Animation */
+        @-webkit-keyframes animatetop {
+            from {top:-300px; opacity:0}
+            to {top:0; opacity:1}
+        }
+        @keyframes animatetop {
+            from {top:-300px; opacity:0}
+            to {top:0; opacity:1}
+        }
+        .close {
+            color: white;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+        .close:hover, .close:focus {
+            color: #000;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        .modal-header {
+            padding: 2px 16px;
+            background-color: #162929;
+            color: #39aeff;
+        }
+        .modal-body {padding: 2px 16px;}
+
+        .modal-footer {
+            padding: 2px 16px;
+            background-color: #162929;
+            color: white;
         }
 
     </style>
@@ -164,8 +276,24 @@
         <!--<div id="22" class="box"></div>-->
     </div>
 
+    <div id="crowd"></div>
+    <div id="crowd2"></div>
 
     <div id="alert" class="success message"><img src="images/reporter.png" alt=""><h1>Texst HEre</h1></div>
+
+    <div id="mode0" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <span class="close">X</span>
+                <h2>Shot Maker</h2>
+            </div>
+            <div class="modal-body">
+            </div>
+            <div class="modal-footer">
+                <h3></h3>
+            </div>
+        </div>
+    </div>
 </div>
 </body>
 </html>
