@@ -1,16 +1,3 @@
-function modalActive(){
-    var modal = $("#mode0" );
-    var span = $(".close");
-    modal.css("display" , "block");
-
-    $(span).click(function() {
-        close();
-    });
-    function close(){
-        modal.css( "display", "none");
-    }
-}
-
 //horizontal function
 
 
@@ -22,13 +9,17 @@ var player1turn = true;
 //    the current mark made default x;
 var currentMark = "x";
 //    the current Symbol used;
-var currentSymbol = "x";
+var currentSymbol = "<img src='Images/bball.png'>";
+var player1Symbol = "<img src='Images/bball.png'>";
+var player2Symbol = "<img src='Images/ABAball.png'>";
 //    player1turn's mark;
 var player1mark = "x";
 //    player2's mark;
 var player2mark = "o";
 // first board set to null after board function is made;
 var board = [["","",""],["","",""],["","",""]];
+var imgArray = ['Images/bball.png', 'Images/ABAball.png'];
+
 
 
 function createBoardArray(number){
@@ -75,7 +66,7 @@ function clicked(targ) {
 
 // This function checks to see if the a clicked box has been clicked
 function checkClicked(targ){
-    if($(targ).text()){
+    if($(targ).html()){
         return true; // return true if there is already text in the box
     }
     else{
@@ -88,7 +79,7 @@ function togglePlayerSymbols(){
     if(player1turn){
 //            set current mark and symbol to player2 and toggle player boolean
         currentMark = player2mark;
-        currentSymbol = player2mark;
+        currentSymbol = player2Symbol;
         player1turn = false;
     }
 //        must be players 2 turn
