@@ -35,11 +35,15 @@ function createBoardArray(number){
 }
 
 // click the box function
-function clicked(targ){
+function clicked(targ) {
 //        takes element clicked id
     console.log("clicked " + targ);
     var id = $(targ).attr("id");
 //        splits id into row and column according to array position
+    //    calls the function checkClicked to see if a box was already clicked
+    if (checkClicked(targ)) {
+        return;
+    }
     var row = id[0];
     var col = id[1];
 //        use the currentSymbol the mark the box
@@ -48,11 +52,22 @@ function clicked(targ){
     board[row][col] = currentMark;
 //        console the win check
     console.log("board value: " + board[row][col]);
-    console.log(checkWin(board));
+    if (checkWin(board)) {
+        $('.board').html('YOU WIN');
+    }
 //        switch the symbols for player turn;
-    togglePlayerSymbols();
-}
+        togglePlayerSymbols();
+    }
 
+// This function checks to see if the a clicked box has been clicked
+function checkClicked(targ){
+    if($(targ).text()){
+        return true; // return true if there is already text in the box
+    }
+    else{
+        return false;
+    }
+}
 
 function togglePlayerSymbols(){
 //        if player 1 turn
