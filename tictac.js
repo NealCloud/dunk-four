@@ -9,7 +9,8 @@ var player1turn = true;
 //    the current mark made default x;
 var currentMark = "x";
 //    the current Symbol used;
-var currentSymbol = "x";
+var currentSymbol = "<img src='Images/bball.png'>";
+var player1Symbol = "<img src='Images/bball.png'>";
 //    player1turn's mark;
 var player1mark = "x";
 //    player2's mark;
@@ -47,7 +48,8 @@ function clicked(targ) {
     var row = id[0];
     var col = id[1];
 //        use the currentSymbol the mark the box
-    $(targ).text(currentSymbol);
+    $(targ).html(currentSymbol);
+
 //        set the board to row and column in array;
     board[row][col] = currentMark;
 //        console the win check
@@ -81,7 +83,7 @@ function togglePlayerSymbols(){
     else{
 //            switch back current mark/symbol to player 1 and toggle player boolean;
         currentMark = player1mark;
-        currentSymbol = player1mark;
+        currentSymbol = player1Symbol;
         player1turn = true;
     }
 }
@@ -94,11 +96,16 @@ function createBoxes(num){
             var box = $("<div>",{
                 id: i + "" + j,
                 class: "box"
-            })
-//                append the box element to the game board
+            });
+
+            boxDimensions(num,box);
             $(box).appendTo(".board");
         }
     }
+}
+function boxDimensions(number,box){
+    var size = (parseInt(100/number) -.4) + "%";
+    box.css({"width":size,"height":size});
 }
 
 $(document).ready(function(){
@@ -114,7 +121,7 @@ function startGame(num){
 //        creates number of div boxes and a board array;
     createBoxes(num);
     board = createBoardArray(num);  //placeholder for board array create
-//assing a click handler to each box to activate the click function;
+//passing a click handler to each box to activate the click function;
     $(".box").click(function(){
         clicked(this);
     });
