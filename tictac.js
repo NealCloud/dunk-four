@@ -19,6 +19,8 @@ var player2mark = "o";
 // first board set to null after board function is made;
 var board = [["","",""],["","",""],["","",""]];
 var draw = 0;
+var player1score = 0;
+var player2score = 0;
 
 var currentBox;
 
@@ -65,6 +67,16 @@ function shotSuccess(targ){
     board[row][col] = currentMark;
 //        console the win check
     console.log("board value: " + board[row][col]);
+    if(player1turn){
+        player1score += 3;
+        $(".home .value").text(player1score);
+    }
+    else{
+        player2score += 3;
+        $(".away .value").text(player2score);
+    }
+
+
     if (checkWin(board)) {
         $('.board').html('YOU WIN');
         winAnimation();

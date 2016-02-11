@@ -94,6 +94,7 @@ function shotMade(hit){
         $("#playingBall").addClass("tooShort");
         setTimeout(function(){
             modalActive();
+            togglePlayerSymbols();
             return;
         }, 2000)
     }
