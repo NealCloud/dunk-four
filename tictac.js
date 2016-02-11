@@ -56,6 +56,12 @@ function clicked(targ) {
     board[row][col] = currentMark;
 //        console the win check
     console.log("board value: " + board[row][col]);
+    draw++
+    if (draw === 9){
+        draw = 0;
+        $('.board').html('TIE GAME');
+        return;
+    }
     if (checkWin(board)) {
         $('.board').html('YOU WIN');
         winAnimation();
@@ -81,6 +87,7 @@ function togglePlayerSymbols(){
         currentMark = player2mark;
         currentSymbol = player2Symbol;
         player1turn = false;
+        $('.home').html();
     }
 //        must be players 2 turn
     else{
@@ -116,12 +123,12 @@ $(document).ready(function(){
     $("#start").click(function(){
         $('.board').html('');
         startGame(3); //change to take input value = to board size;
-    })
+    });
     $("#shot").click(function(){
         var num =$('.aimer').offset();
         shotMade(num.left);
     })
-})
+});
 
 //    starts the game take in a number
 function startGame(num){
