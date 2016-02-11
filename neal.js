@@ -1,6 +1,4 @@
-//GameLogic
 //holds modal hiding
-var theShot = false;
 function modalActive(){
     var modal = $("#mode0" );
     if ( modal.is( ":hidden" ) ) {
@@ -26,7 +24,6 @@ function displayAlert(text, type, sound){
     if(sound){
         sound.play();
     }
-
     $("#alert h1").text(text);
 }
 
@@ -97,6 +94,7 @@ function shotMade(hit){
         $("#playingBall").addClass("tooShort");
         setTimeout(function(){
             modalActive();
+            togglePlayerSymbols();
             return;
         }, 2000)
     }
@@ -213,6 +211,7 @@ function rightToLeftDiagonal(array) {
     }
 }
 
+
 var winConditions = [vertical, horizontal, rightToLeftDiagonal, leftToRightDiagonal];
 
 function checkWin(){
@@ -224,7 +223,7 @@ function checkWin(){
 }
 
 
-var currentBox;
+
 //    global variables
 //    player1turn turn is on
 var player1turn = true;
@@ -236,11 +235,15 @@ var player1Symbol = "<img src='Images/bball.png'>";
 var player2Symbol = "<img src='Images/ABAball.png'>";
 //    player1turn's mark;
 var player1mark = "x";
+var player1score = 0;
+var player2score = 0;
 //    player2's mark;
 var player2mark = "o";
 // first board set to null after board function is made;
 var board = [["","",""],["","",""],["","",""]];
+var draw = 0;
 
+var currentBox;
 
 function createBoardArray(number){
     var gameArray = [];
@@ -264,15 +267,13 @@ function clicked(targ) {
     console.log("clicked " + targ);
 //        splits id into row and column according to array position
     //    calls the function checkClicked to see if a box was already clicked
-    if ($(targ).html()) {
+    if (!$(targ).html()) {
         currentBox = targ;
         createShotAttempt();
         // return true if there is already text in the box
     }
     else {
-        currentBox = targ;
-        createShotAttempt();
-        console.log("failed");
+        console.log("filled");
         return;
     }
 }
@@ -287,15 +288,25 @@ function shotSuccess(targ){
     board[row][col] = currentMark;
 //        console the win check
     console.log("board value: " + board[row][col]);
+
+    if(player1turn){
+        player1score += 3;
+        $(".home .value").text(player1score);
+    }
+    else{
+        player2score += 3;
+        $(".away .value").text(player2score);
+    }
+    togglePlayerSymbols();
+
     if (checkWin(board)) {
         $('.board').html('YOU WIN');
         winAnimation();
     }
 //        switch the symbols for player turn;
-    togglePlayerSymbols();
-}
 
-// This function checks to see if the a clicked box has been clicked
+
+}
 
 
 function togglePlayerSymbols(){
@@ -305,6 +316,8 @@ function togglePlayerSymbols(){
         currentMark = player2mark;
         currentSymbol = player2Symbol;
         player1turn = false;
+        $('.away').removeClass('current_team');
+        $('.home').addClass('current_team');
     }
 //        must be players 2 turn
     else{
@@ -312,6 +325,9 @@ function togglePlayerSymbols(){
         currentMark = player1mark;
         currentSymbol = player1Symbol;
         player1turn = true;
+        $('.home').removeClass('current_team');
+        $('.away').addClass('current_team');
+
     }
 }
 
@@ -339,13 +355,14 @@ $(document).ready(function(){
 //        A button to Start the Game
     $("#start").click(function(){
         $('.board').html('');
+        $('.away .home').removeClass('current_team');
         startGame(3); //change to take input value = to board size;
-    })
+    });
     $("#shot").click(function(){
         var num =$('.aimer').offset();
         shotMade(num.left);
     })
-})
+});
 
 //    starts the game take in a number
 function startGame(num){
