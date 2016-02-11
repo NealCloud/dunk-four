@@ -1,3 +1,16 @@
+function modalActive(){
+    var modal = $("#mode0" );
+    var span = $(".close");
+    modal.css("display" , "block");
+
+    $(span).click(function() {
+        close();
+    });
+    function close(){
+        modal.css( "display", "none");
+    }
+}
+
 //horizontal function
 
 
