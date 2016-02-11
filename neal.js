@@ -1,3 +1,4 @@
+//GameLogic
 //holds modal hiding
 function modalActive(){
     var modal = $("#mode0" );
@@ -24,6 +25,7 @@ function displayAlert(text, type, sound){
     if(sound){
         sound.play();
     }
+
     $("#alert h1").text(text);
 }
 
@@ -65,6 +67,7 @@ function createShotAttempt(){
     var random = Math.floor(Math.random()* 400);
     $(".target").css("left", random + "px");
 
+
 }
 function shotMade(hit){
     //the range is 86 - 475
@@ -91,7 +94,6 @@ function randomAlert(){
 }
 
 
-
 function horizontal (board) {
     var x; var o;
     var bLen = board.length;
@@ -109,18 +111,11 @@ function horizontal (board) {
 
         }
         if(x == bLen){
-            return "X is WINSSSS";
+            return "X";
 
         }
         else if(o == bLen){
-            return "O is the WINNARR";
-            $("#alert img").addClass("animate");
-            setTimeout(function(){
-                $("#alert img").removeClass("animate");
-            }, 1000);
-        }
-        else if (o == bLen - 1){
-            displayAlert("OH NO PLAYER1 might win", "warn");
+            return "O";
         }
 
     }
@@ -145,7 +140,7 @@ function vertical(board){
             return "X";
         }
         else if(o == bLen){
-            return "O RULZ";
+            return "O";
         }
     }
     return false;
@@ -170,9 +165,6 @@ function leftToRightDiagonal(array) {
     }
     else if(counterX == array.length){
         return("X wins");
-    }
-    else if (counterO == array.length - 1){
-        console.log("Warning ooooh might win!");
     }
     else{
         return false;
@@ -202,6 +194,7 @@ function rightToLeftDiagonal(array) {
     }
 }
 
+
 var winConditions = [vertical, horizontal, rightToLeftDiagonal, leftToRightDiagonal];
 
 function checkWin(){
@@ -212,9 +205,6 @@ function checkWin(){
     return false;
 }
 
-//horizontal function
-
-
 
 
 //    global variables
@@ -223,13 +213,16 @@ var player1turn = true;
 //    the current mark made default x;
 var currentMark = "x";
 //    the current Symbol used;
-var currentSymbol = "x";
+var currentSymbol = "<img src='Images/bball.png'>";
+var player1Symbol = "<img src='Images/bball.png'>";
+var player2Symbol = "<img src='Images/ABAball.png'>";
 //    player1turn's mark;
 var player1mark = "x";
 //    player2's mark;
 var player2mark = "o";
 // first board set to null after board function is made;
 var board = [["","",""],["","",""],["","",""]];
+
 
 
 function createBoardArray(number){
@@ -251,7 +244,7 @@ function createBoardArray(number){
 // click the box function
 function clicked(targ) {
 //        takes element clicked id
-    //console.log("clicked " + targ);
+    console.log("clicked " + targ);
     var id = $(targ).attr("id");
 //        splits id into row and column according to array position
     //    calls the function checkClicked to see if a box was already clicked
@@ -261,16 +254,15 @@ function clicked(targ) {
     var row = id[0];
     var col = id[1];
 //        use the currentSymbol the mark the box
-    $(targ).text(currentSymbol);
+    $(targ).html(currentSymbol);
+
 //        set the board to row and column in array;
     board[row][col] = currentMark;
 //        console the win check
-    //console.log("board value: " + board[row][col]);
+    console.log("board value: " + board[row][col]);
     if (checkWin(board)) {
         $('.board').html('YOU WIN');
-        displayAlert(checkWin(board), "win");
         winAnimation();
-
     }
 //        switch the symbols for player turn;
     togglePlayerSymbols();
@@ -278,7 +270,7 @@ function clicked(targ) {
 
 // This function checks to see if the a clicked box has been clicked
 function checkClicked(targ){
-    if($(targ).text()){
+    if($(targ).html()){
         return true; // return true if there is already text in the box
     }
     else{
@@ -291,14 +283,14 @@ function togglePlayerSymbols(){
     if(player1turn){
 //            set current mark and symbol to player2 and toggle player boolean
         currentMark = player2mark;
-        currentSymbol = player2mark;
+        currentSymbol = player2Symbol;
         player1turn = false;
     }
 //        must be players 2 turn
     else{
 //            switch back current mark/symbol to player 1 and toggle player boolean;
         currentMark = player1mark;
-        currentSymbol = player1mark;
+        currentSymbol = player1Symbol;
         player1turn = true;
     }
 }
@@ -311,11 +303,16 @@ function createBoxes(num){
             var box = $("<div>",{
                 id: i + "" + j,
                 class: "box"
-            })
-//                append the box element to the game board
+            });
+
+            boxDimensions(num,box);
             $(box).appendTo(".board");
         }
     }
+}
+function boxDimensions(number,box){
+    var size = (parseInt(100/number) -.4) + "%";
+    box.css({"width":size,"height":size});
 }
 
 $(document).ready(function(){
@@ -324,9 +321,8 @@ $(document).ready(function(){
         $('.board').html('');
         startGame(3); //change to take input value = to board size;
     })
-
     $("#shot").click(function(){
-        var num = $(".aimer").offset();
+        var num =$('.aimer').offset();
         shotMade(num.left);
     })
 })
@@ -336,7 +332,7 @@ function startGame(num){
 //        creates number of div boxes and a board array;
     createBoxes(num);
     board = createBoardArray(num);  //placeholder for board array create
-//assing a click handler to each box to activate the click function;
+//passing a click handler to each box to activate the click function;
     $(".box").click(function(){
         clicked(this);
     });

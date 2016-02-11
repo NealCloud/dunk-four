@@ -157,3 +157,27 @@
         background-position: 880px 0;
     }
 }
+
+.target{
+    position: absolute;
+    height: 50px;
+    width: 50px;
+    background-color: green;
+}
+.aimer{
+    position: absolute;
+    display: inline-block;
+    border: 2px solid orange;
+    width: 50px;
+    height: 50px;
+    animation: move .5s linear 0s infinite alternate;
+}
+.backboard{
+    position: relative;
+    width: 300px;
+    height: 50px;
+
+}
+@keyframes move {
+    9% {left:0px;} 100% {left:400px;}
+}
