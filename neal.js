@@ -1,5 +1,6 @@
 //GameLogic
 //holds modal hiding
+var theShot = false;
 function modalActive(){
     var modal = $("#mode0" );
     if ( modal.is( ":hidden" ) ) {
@@ -48,7 +49,12 @@ function winAnimation(){
 }
 
 function createShotAttempt(){
+
     modalActive();
+    $("#playingBall").removeClass("tooShort");
+    $("#playingBall").removeClass("swish");
+    $("#shot").show();
+    $(".modal-footer").html("");
     var shotTarget = $('<div>',{
         class: "target"
     });
@@ -70,9 +76,9 @@ function createShotAttempt(){
 
 }
 function shotMade(hit){
+    $("#shot").hide();
     //the range is 86 - 475
     var target = $(".target").offset();
-
     var accuracy = Math.abs(hit - target.left);
     console.log(hit, target.left);
     console.log(accuracy);
@@ -80,10 +86,19 @@ function shotMade(hit){
     //test case
     if(accuracy < 50){
         randomAlert();
-        modalActive();
+        $("#playingBall").addClass("swish");
+        setTimeout(function(){
+            shotSuccess(currentBox);
+            modalActive();
+            return;
+        }, 2000)
     }
     else{
-        modalActive();
+        $("#playingBall").addClass("tooShort");
+        setTimeout(function(){
+            modalActive();
+            return;
+        }, 2000)
     }
 
 }
@@ -198,7 +213,6 @@ function rightToLeftDiagonal(array) {
     }
 }
 
-
 var winConditions = [vertical, horizontal, rightToLeftDiagonal, leftToRightDiagonal];
 
 function checkWin(){
@@ -210,7 +224,7 @@ function checkWin(){
 }
 
 
-
+var currentBox;
 //    global variables
 //    player1turn turn is on
 var player1turn = true;
@@ -226,7 +240,6 @@ var player1mark = "x";
 var player2mark = "o";
 // first board set to null after board function is made;
 var board = [["","",""],["","",""],["","",""]];
-
 
 
 function createBoardArray(number){
@@ -249,12 +262,22 @@ function createBoardArray(number){
 function clicked(targ) {
 //        takes element clicked id
     console.log("clicked " + targ);
-    var id = $(targ).attr("id");
 //        splits id into row and column according to array position
     //    calls the function checkClicked to see if a box was already clicked
-    if (checkClicked(targ)) {
+    if ($(targ).html()) {
+        currentBox = targ;
+        createShotAttempt();
+        // return true if there is already text in the box
+    }
+    else {
+        currentBox = targ;
+        createShotAttempt();
+        console.log("failed");
         return;
     }
+}
+function shotSuccess(targ){
+    var id = $(targ).attr("id");
     var row = id[0];
     var col = id[1];
 //        use the currentSymbol the mark the box
@@ -273,16 +296,7 @@ function clicked(targ) {
 }
 
 // This function checks to see if the a clicked box has been clicked
-function checkClicked(targ){
-    if($(targ).html()){
-        createShotAttempt();
 
-        return true; // return true if there is already text in the box
-    }
-    else{
-        return false;
-    }
-}
 
 function togglePlayerSymbols(){
 //        if player 1 turn

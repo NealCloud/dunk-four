@@ -52,7 +52,10 @@
     background-color: #162929;
     color: #39aeff;
 }
-.modal-body {padding: 2px 16px;}
+.modal-body {
+    height: 600px;
+    padding: 2px 16px;
+}
 
 .modal-footer {
     padding: 2px 16px;
@@ -180,4 +183,132 @@
 }
 @keyframes move {
     9% {left:0px;} 100% {left:400px;}
+}
+
+
+#hoopNet{
+    position:relative;
+    left:45%;
+    width:7%;
+    top:10%;
+    height:10%;
+
+
+}
+
+#rim{
+    position:absolute;
+    width:100%;
+    height:100%;
+}
+
+#net{
+    position:absolute;
+    width:100%;
+    height:100%;
+    left:2.5%;
+    top:65%;
+
+    animation-name:net;
+    animation-duration:2.5s;
+    animation-timing-function:linear;
+}
+
+#playingBall{
+    position:relative;
+    top:70%;
+    left:45%;
+    width:10%;
+    height:auto;
+}
+#ball {
+    width:100%;
+    height:auto;
+    border-radius:50%;
+    position:relative;
+
+
+    /*animation-name: shoot;*/
+    /*animation-duration:2.5s;*/
+    /*animation-timing-function:linear;*/
+}
+
+/* made basket animation*/
+.swish{
+    animation-name: score;
+    animation-duration:2.5s;
+    animation-timing-function:linear;
+}
+
+/* tooFar basket animation*/
+.tooFar{
+    animation-name: long;
+    animation-duration:2.5s;
+    animation-timing-function:linear;
+}
+
+/* tooShort basket animation*/
+.tooShort{
+    animation-name: short;
+    animation-duration:2.5s;
+    animation-timing-function:linear;
+}
+
+/* button*/
+/*#shoot{*/
+/*position:absolute;*/
+/*}*/
+
+/*Keyframes for the 3 different scenarios */
+@keyframes score {
+    0%{
+        top:70%;
+    }
+    80% {
+        top: 0%;
+        width: 2%;
+        height: auto;
+        left:47%;
+    }
+    100% {
+        top: 5%;
+        width: 2%;
+        height: auto;
+        left:47.5%;
+    }
+}
+@keyframes long {
+    0%{
+        top:70%;
+    }
+    80% {
+        top: -10%;
+        width: 2%;
+        height: auto;
+        left:47%;
+    }
+    100% {
+        top: -5%;
+        width: 2%;
+        height: auto;
+        left:47.5%;
+    }
+}
+
+@keyframes short {
+    0%{
+        top:70%;
+    }
+    80% {
+        top: 10%;
+        width: 2%;
+        height: auto;
+        left:47%;
+    }
+    100% {
+        top: 15%;
+        width: 2%;
+        height: auto;
+        left:47.5%;
+    }
 }
