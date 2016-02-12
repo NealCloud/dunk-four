@@ -94,7 +94,7 @@ function shotMade(hit){
 
     //test case
     if(accuracy < 50){
-        randomAlert();
+        randomAlert("good");
         $("#playingBall").addClass("swish");
         setTimeout(function(){
             shotSuccess(currentBox);
@@ -103,6 +103,7 @@ function shotMade(hit){
         }, 2600)
     }
     else{
+        randomAlert("bad");
         $("#playingBall").addClass("tooShort");
         setTimeout(function(){
             modalActive();
@@ -116,10 +117,17 @@ var boom = new Audio("audio/boomshaka.mp3");
 var downtown = new Audio("audio/downtown.mp3");
 var onfire = new Audio("audio/onfire.mp3");
 var alert = [["Boomshakala",boom],["From DOWNTOWN", downtown],["He's on fire", onfire]];
+var wiff = [["Airrball",boom],["a Big Miss", downtown],["wheres the focus", onfire]];
 
-function randomAlert(){
-    var r = Math.floor(Math.random()* alert.length);
-    displayAlert(alert[r][0],"warn", alert[r][1]);
+function randomAlert(com){
+    if(com == "good"){
+        var r = Math.floor(Math.random()* alert.length);
+        displayAlert(alert[r][0],"warn", alert[r][1]);
+    }
+    else{
+        var r = Math.floor(Math.random()* wiff.length);
+        displayAlert(wiff[r][0],"warn" );
+    }
 }
 
 
