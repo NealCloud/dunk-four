@@ -28,6 +28,16 @@ function displayAlert(text, type, sound){
 }
 
 function winAnimation(){
+    if(player1score > player2score){
+        $(".board").text("HOME TEAM WINS!!!");
+    }
+    else if(player1score < player2score){
+        $(".board").text("HOME TEAM WINS!!!");
+    }
+    else{
+        $(".board").text("ITS A DRAW");
+        return;
+    }
     $("#alert").slideUp("slow");
     $("#crowd").html("<audio autoplay loop><source src='audio/readyforthis.mp3' type='audio/mpeg'></audio>");
 
@@ -42,6 +52,8 @@ function winAnimation(){
         $("#crowd2").append(img2);
         $(".board").css("height", "67vh");
         $(".board").addClass("lights");
+
+
     }, 2000)
 }
 

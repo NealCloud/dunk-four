@@ -1,3 +1,30 @@
+
+var countdownClock = 0;
+var notStarted = true;
+
+function countdown(duration, display, callback){
+    var timer, minutes, seconds;
+
+    countdownClock = setInterval(function () {
+        //uses abs to clear - sign
+        minutes = parseInt(duration / 60, 10);
+        seconds = parseInt(duration % 60, 10);
+        //adds a zero if less then 10 for uniformity
+        minutes = minutes < 10 ? "0" + minutes : minutes;
+        seconds = seconds < 10 ? "0" + seconds : seconds;
+
+        $(display).text(minutes + ":" + seconds);
+
+        if (--duration < 10) {
+            $(display).addClass("current_team");
+            if(duration <  0){
+                //activate callback and clear timer
+                callback();
+                clearInterval(countdownClock);
+            }
+        }
+    }, 1000);
+}
 //holds modal hiding
 function modalActive(){
     var modal = $("#mode0" );
@@ -28,6 +55,16 @@ function displayAlert(text, type, sound){
 }
 
 function winAnimation(){
+    if(player1score > player2score){
+        $(".board").text("HOME TEAM WINS!!!");
+    }
+    else if(player1score < player2score){
+        $(".board").text("HOME TEAM WINS!!!");
+    }
+    else{
+        $(".board").text("ITS A DRAW");
+        return;
+    }
     $("#alert").slideUp("slow");
     $("#crowd").html("<audio autoplay loop><source src='audio/readyforthis.mp3' type='audio/mpeg'></audio>");
 
@@ -42,6 +79,8 @@ function winAnimation(){
         $("#crowd2").append(img2);
         $(".board").css("height", "67vh");
         $(".board").addClass("lights");
+
+
     }, 2000)
 }
 
@@ -104,7 +143,7 @@ var boom = new Audio("audio/boomshaka.mp3");
 var downtown = new Audio("audio/downtown.mp3");
 var onfire = new Audio("audio/onfire.mp3");
 var alert = [["Boomshakala",boom],["From DOWNTOWN", downtown],["He's on fire", onfire]];
-
+var wiff = [["Airrball",boom],["a Big Miss", downtown],["wheres the focus", onfire]];
 function randomAlert(){
     var r = Math.floor(Math.random()* alert.length);
     displayAlert(alert[r][0],"warn", alert[r][1]);
@@ -300,8 +339,7 @@ function shotSuccess(targ){
     togglePlayerSymbols();
 
     if (checkWin(board)) {
-        $('.board').html('YOU WIN');
-        winAnimation();
+
     }
 //        switch the symbols for player turn;
 
@@ -373,4 +411,10 @@ function startGame(num){
     $(".box").click(function(){
         clicked(this);
     });
+    if(notStarted){
+        notStarted = false;
+        countdown(120, ".timer .value", function(){
+            winAnimation();
+        });
+    }
 }

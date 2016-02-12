@@ -23,6 +23,32 @@ var player1score = 0;
 var player2score = 0;
 
 var currentBox;
+var countdownClock = 0;
+var notStarted = true;
+
+function countdown(duration, display, callback){
+    var timer, minutes, seconds;
+
+    countdownClock = setInterval(function () {
+        //uses abs to clear - sign
+        minutes = parseInt(duration / 60, 10);
+        seconds = parseInt(duration % 60, 10);
+        //adds a zero if less then 10 for uniformity
+        minutes = minutes < 10 ? "0" + minutes : minutes;
+        seconds = seconds < 10 ? "0" + seconds : seconds;
+
+        $(display).text(minutes + ":" + seconds);
+
+        if (--duration < 10) {
+            $(display).addClass("current_team");
+            if(duration <  0){
+                //activate callback and clear timer
+                callback();
+                clearInterval(countdownClock);
+            }
+        }
+    }, 1000);
+}
 
 function createBoardArray(number){
     var gameArray = [];
@@ -154,4 +180,10 @@ function startGame(num){
     $(".box").click(function(){
         clicked(this);
     });
+    if(notStarted){
+        notStarted = false;
+        countdown(120, ".timer .value", function(){
+            winAnimation();
+        });
+    }
 }
