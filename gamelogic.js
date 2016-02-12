@@ -32,7 +32,7 @@ function winAnimation(){
         $(".board").text("HOME TEAM WINS!!!");
     }
     else if(player1score < player2score){
-        $(".board").text("HOME TEAM WINS!!!");
+        $(".board").text("AWAY TEAM WINS!!!");
     }
     else{
         $(".board").text("ITS A DRAW");
@@ -62,6 +62,8 @@ function removeWinAnimation() {
     $(".board").empty("");
     $(".board").removeClass("lights").removeAttr("height");
     $(".message h1").html('');
+    player1score = 0;
+    player2score = 0;
     clearInterval(countdownClock);
     notStarted = true;
     $("#alert").show();
