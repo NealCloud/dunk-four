@@ -64,6 +64,8 @@ function removeWinAnimation() {
     $(".message h1").html('');
     player1score = 0;
     player2score = 0;
+    $(".home .value").text(player1score);
+    $(".away .value").text(player2score);
     clearInterval(countdownClock);
     notStarted = true;
     $("#alert").show();
