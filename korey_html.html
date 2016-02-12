@@ -3,65 +3,6 @@
 <head>
     <title>Tic Tac Toe</title>
     <style>
-        /*Main Game and Stats Styling*/
-        .games{
-
-            overflow: hidden;
-        }
-        .away{
-            float: left;
-        }
-        .home{
-            float: right;
-        }
-        #stats-container{
-            text-transform: uppercase;
-        }
-
-        header {
-            width: 100%;
-            height: 10%;
-            background-color: rgba(0, 0, 0, .3);
-            font-size: 16px;
-            color: white;
-            padding:.1%;
-            text-align: center;
-            font-family:scoreboard;
-        }
-
-        body{
-            box-sizing: border-box;
-        }
-        .board{
-            width: 800px;
-            height: 700px;
-            display: flex;
-            flex-flow: row wrap;
-            margin: 0 auto;
-        }
-        .box{
-            text-align: center;
-            font-size: 80px;
-            /*width: 33%;*/
-            /*height: 200px;*/
-            border: 1px solid white;
-            color: white;
-        }
-        body {
-            background: url("Images/hardwood.jpg");
-            background-size: cover;
-        }
-        @font-face {
-            font-family: scoreboard;
-            src: url(Images/scoreboard.ttf);
-        }
-
-
-
-
-
-
-
 
 
     </style>
@@ -70,7 +11,6 @@
     <script src="tictac.js"></script>
     <script src="gamelogic.js"></script>
     <link rel="stylesheet" href="testmodal.css">
-    <script src="korey.js"></script>
 
 
 </head>
@@ -80,24 +20,29 @@
 <div id="main-container">
     <div id="header-container">
         <header>
-            <h1>TIC TAC TOE</h1>
+            <h1>VERY INSANE DOGS TIC TAC TOE</h1>
             <div id="stats-container">
                 <div class="home">
+                    <img src="Images/ABAball.png" alt="">
                     <div class="label">Home Team</div>
                     <div class="value"></div>
                 </div>
+                <div class="timer">
+                    <div class="label">Clock</div>
+                    <div class="value"></div>
+                </div>
                 <div class="away">
+                    <img src="Images/bball.png" alt="">
                     <div class="label">Away Team</div>
                     <div class="value"></div>
                 </div>
-                <button id="start" type="submit">Start</button>
+                <button class="gamebtn" id="start" type="submit">Reset Board</button>
             </div>
 
         </header>
     </div>
 
 
-    <div id="alert"></div>
 
     <div class="board">
         <!--<div id="00" class="box"></div>-->
@@ -110,23 +55,30 @@
         <!--<div id="21" class="box"></div>-->
         <!--<div id="22" class="box"></div>-->
     </div>
+
+    <div id="crowd"></div>
+    <div id="crowd2"></div>
+
+    <div id="alert" class="success message"><img src="images/reporter.png" alt=""><h1></h1></div>
+
     <div id="mode0" class="modal">
         <div class="modal-content">
             <div class="modal-header">
-                <span class="close">X</span>
+                <span class="close"></span>
                 <h2>Shot Maker</h2>
             </div>
             <div class="modal-body">
                 <div id="hoopNet">
-                    <img id=rim src="http://statics.exclusiveone.com/exone/SuperGlass-Collegiate-SB-Basketball-Backboard-with-center-strut-72-x-42-from-Spaldi-476439256--large.png">
-                    <img id = "net" src="http://www.rainbownew.com/images/products/hoops/thumb/steelnet.png">
+                    <img id=rim src="Images/backboard.png">
+                    <img id ="net" src="Images/steelnet.png">
                 </div>
-                <div id ="shootButton">
-                    <button>Shoot</button>
-                </div>
+                <!--<div id ="shootButton">-->
+                <!--<button>Shoot</button>-->
+                <!--</div>-->
                 <div id="playingBall">
-                    <img id="ball" src="http://i618.photobucket.com/albums/tt264/martenfisher/basketball.png">
+                    <img id="ball" src="Images/basketball.png">
                 </div>
+                <button class="gamebtn" id="shot">SHOOT</button>
             </div>
             <div class="modal-footer">
                 <h3></h3>

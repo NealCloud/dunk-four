@@ -20,7 +20,6 @@
     padding: 0;
     border: 1px solid #888;
     width: 80%;
-    height: 90vh;
     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
     -webkit-animation-name: animatetop;
     -webkit-animation-duration: 0.4s;
@@ -53,144 +52,16 @@
     background-color: #162929;
     color: #39aeff;
 }
-.modal-body {padding: 2px 16px;height: 90%;}
-
+.modal-body {
+    height: 60vh;
+    padding: 2px 16px;
+}
 
 .modal-footer {
-    /* padding: 2px 16px; */
+    padding: 2px 16px;
     background-color: #162929;
     color: white;
-    height: 2%;
 }
-
-
-#hoopNet{
-    position:relative;
-    left:45%;
-    width:7%;
-    top:10%;
-    height:10%;
-
-
-}
-
-#rim{
-    position:absolute;
-    width:100%;
-    height:100%;
-}
-
-#net{
-    position:absolute;
-    width:100%;
-    height:100%;
-    left:2.5%;
-    top:65%;
-
-    animation-name:net;
-    animation-duration:2.5s;
-    animation-timing-function:linear;
-}
-
-#playingBall{
-    position:relative;
-    top:70%;
-    left:45%;
-    width:10%;
-    height:auto;
-}
-#ball {
-    width:100%;
-    height:auto;
-    border-radius:50%;
-    position:relative;
-
-
-    /*animation-name: shoot;*/
-    /*animation-duration:2.5s;*/
-    /*animation-timing-function:linear;*/
-}
-
-/* made basket animation*/
-.swish{
-    animation-name: score;
-    animation-duration:2.5s;
-    animation-timing-function:linear;
-}
-
-/* tooFar basket animation*/
-.tooFar{
-    animation-name: long;
-    animation-duration:2.5s;
-    animation-timing-function:linear;
-}
-
-/* tooShort basket animation*/
-.tooShort{
-    animation-name: short;
-    animation-duration:2.5s;
-    animation-timing-function:linear;
-}
-
-/* button*/
-/*#shoot{*/
-    /*position:absolute;*/
-/*}*/
-
-/*Keyframes for the 3 different scenarios */
-@keyframes score {
-    0%{
-        top:70%;
-    }
-    80% {
-        top: 0%;
-        width: 2%;
-        height: auto;
-        left:47%;
-    }
-    100% {
-        top: 5%;
-        width: 2%;
-        height: auto;
-        left:47.5%;
-    }
-}
-@keyframes long {
-     0%{
-         top:70%;
-     }
-     80% {
-         top: -10%;
-         width: 2%;
-         height: auto;
-         left:47%;
-     }
-     100% {
-         top: -5%;
-         width: 2%;
-         height: auto;
-         left:47.5%;
-     }
- }
-
-@keyframes short {
-    0%{
-        top:70%;
-    }
-    80% {
-        top: 10%;
-        width: 2%;
-        height: auto;
-        left:47%;
-    }
-    100% {
-        top: 15%;
-        width: 2%;
-        height: auto;
-        left:47.5%;
-    }
-}
-
 
 .message{
     background-size: 40px 40px;
@@ -288,4 +159,253 @@
     to {
         background-position: 880px 0;
     }
+}
+
+.target{
+    position: absolute;
+    height: 50px;
+    width: 50px;
+    background-color: green;
+}
+.aimer{
+    position: absolute;
+    display: inline-block;
+    border: 2px solid orange;
+    width: 50px;
+    height: 50px;
+    animation: move .5s linear 0s infinite alternate;
+}
+.backboard{
+    position: relative;
+    width: 300px;
+    height: 50px;
+
+}
+@keyframes move {
+    9% {left:0px;} 100% {left:400px;}
+}
+
+
+#hoopNet{
+    position:relative;
+    left:45%;
+    width:7%;
+    top:10%;
+    height:10%;
+
+
+}
+
+#rim{
+    position:absolute;
+    width:100%;
+    height:100%;
+}
+
+#net{
+    position:absolute;
+    width:100%;
+    height:100%;
+    left:2.5%;
+    top:65%;
+
+}
+
+#playingBall{
+    position:relative;
+    top:70%;
+    left:45%;
+    width:10%;
+    height:auto;
+}
+#ball {
+    width:100%;
+    height:auto;
+    border-radius:50%;
+    position:relative;
+
+
+    /*animation-name: shoot;*/
+    /*animation-duration:2.5s;*/
+    /*animation-timing-function:linear;*/
+}
+.rimshake{
+    animation-name:net;
+    animation-duration:2.5s;
+    animation-timing-function:linear;
+}
+
+/* made basket animation*/
+.swish{
+    animation-name: score;
+    animation-duration:2.5s;
+    animation-timing-function:linear;
+}
+
+/* tooFar basket animation*/
+.tooFar{
+    animation-name: long;
+    animation-duration:2.5s;
+    animation-timing-function:linear;
+}
+
+/* tooShort basket animation*/
+.tooShort{
+    animation-name: short;
+    animation-duration:2.5s;
+    animation-timing-function:linear;
+}
+
+@keyframes net{
+
+    99%{
+        transform:rotate(0deg)
+    }
+    100%{
+        transform:rotate(4deg);
+    }
+}
+
+/*Keyframes for the 3 different scenarios */
+@keyframes score {
+    0%{
+        top:70%;
+    }
+    80% {
+        top: 0%;
+        width: 2%;
+        height: auto;
+        left:47%;
+    }
+    100% {
+        top: 5%;
+        width: 2%;
+        height: auto;
+        left:47.5%;
+    }
+}
+@keyframes long {
+    0%{
+        top:70%;
+    }
+    80% {
+        top: -10%;
+        width: 2%;
+        height: auto;
+        left:47%;
+    }
+    100% {
+        top: -5%;
+        width: 2%;
+        height: auto;
+        left:47.5%;
+    }
+}
+
+@keyframes short {
+    0%{
+        top:70%;
+    }
+    80% {
+        top: 10%;
+        width: 2%;
+        height: auto;
+        left:47%;
+    }
+    100% {
+        top: 15%;
+        width: 2%;
+        height: auto;
+        left:47.5%;
+    }
+}
+
+.gamebtn {
+    padding: 10px 15px;
+    font-size: 20px;
+    text-align: center;
+    cursor: pointer;
+    outline: none;
+    color: #fffb1d;
+    background-color: #022842;
+    border: none;
+    border-radius: 15px;
+}
+
+.gamebtn:hover {
+    background-color: #af6944;
+}
+
+.gamebtn:active {
+    background-color: #8e04af;
+    transform: translateY(4px);
+}
+
+/*Main Game and Stats Styling*/
+.away{
+    float: left;
+    font-size: 3vmax;
+    /*background-image: url(Images/ABAball.png);*/
+    /*background-repeat: no-repeat;*/
+}
+.home{
+    float: right;
+    font-size: 3vmax;
+    /*background-image: url(Images/bball.png);*/
+    /*background-repeat: no-repeat;*/
+    align-items: center;
+    justify-content: center;
+}
+.current_team{
+    color:yellow;
+}
+
+#stats-container{
+    text-transform: uppercase;
+}
+
+header {
+    width: 100%;
+    height: 10%;
+    background-color: rgba(0, 0, 0, .3);
+    font-size: 16px;
+    color: white;
+    padding:.1%;
+    text-align: center;
+    font-family:scoreboard;
+}
+
+.board{
+    width: 800px;
+    height: 700px;
+    display: flex;
+    flex-flow: row wrap;
+    margin: 0 auto;
+    align-items: center;
+
+}
+.box{
+    text-align: center;
+    font-size: 80px;
+    /*width: 33%;*/
+    /*height: 200px;*/
+    border: none;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-image: url(Images/hoop.png);
+    width: 200px;
+    height: 200px;
+    background-repeat: no-repeat;
+
+}
+body {
+    box-sizing: border-box;
+    background: url("Images/hardwood.jpg");
+    background-size: cover;
+}
+@font-face {
+    font-family: scoreboard;
+    src: url(Images/scoreboard.ttf);
 }

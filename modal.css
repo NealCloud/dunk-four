@@ -209,9 +209,6 @@
     left:2.5%;
     top:65%;
 
-    animation-name:net;
-    animation-duration:2.5s;
-    animation-timing-function:linear;
 }
 
 #playingBall{
@@ -231,6 +228,11 @@
     /*animation-name: shoot;*/
     /*animation-duration:2.5s;*/
     /*animation-timing-function:linear;*/
+}
+.rimshake{
+    animation-name:net;
+    animation-duration:2.5s;
+    animation-timing-function:linear;
 }
 
 /* made basket animation*/
@@ -254,10 +256,15 @@
     animation-timing-function:linear;
 }
 
-/* button*/
-/*#shoot{*/
-/*position:absolute;*/
-/*}*/
+@keyframes net{
+
+    99%{
+        transform:rotate(0deg)
+    }
+    100%{
+        transform:rotate(4deg);
+    }
+}
 
 /*Keyframes for the 3 different scenarios */
 @keyframes score {

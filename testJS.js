@@ -1,16 +1,16 @@
 
-function modalActive(){
-    var modal = $("#mode0" );
-    var span = $(".close");
-    modal.css("display" , "block");
-
-    $(span).click(function() {
-        close();
-    });
-    function close(){
-        modal.css( "display", "none");
-    }
-}
+//function modalActive(){
+//    var modal = $("#mode0" );
+//    var span = $(".close");
+//    modal.css("display" , "block");
+//
+//    $(span).click(function() {
+//        close();
+//    });
+//    function close(){
+//        modal.css( "display", "none");
+//    }
+//}
 
 
 
@@ -50,14 +50,6 @@ function createBoardArray(number){
 
 // click the box function
 function clicked(targ) {
-    // removes class so animation doesn't occur beofre they click
-    $("#playingBall").removeClass("tooShort");
-//        takes element clicked id
-    modalActive();
-    // clicks button to create the animation
-    //$("#shot").click(function(){
-    //    $("#playingBall").addClass("tooShort");
-    //});
 //        takes element clicked id
     console.log("clicked " + targ);
     var id = $(targ).attr("id");
@@ -65,6 +57,9 @@ function clicked(targ) {
     //    calls the function checkClicked to see if a box was already clicked
     if (checkClicked(targ)) {
         return;
+    }
+    else{
+        createShotAttempt();
     }
     var row = id[0];
     var col = id[1];
@@ -137,7 +132,7 @@ $(document).ready(function(){
         startGame(3); //change to take input value = to board size;
     })
     $("#shot").click(function(){
-        $("#playingBall").addClass("tooShort");
+        //$("#playingBall").addClass("tooShort");
         var num =$('.aimer').offset();
         shotMade(num.left);
     })
@@ -153,3 +148,38 @@ function startGame(num){
         clicked(this);
     });
 }
+
+
+
+
+function shotMade(hit) {
+    $("#shot").hide();
+    //the range is 86 - 475
+    var target = $(".target").offset();
+    $(".aimer").clone().appendTo(".backboard");
+    var accuracy = Math.abs(hit - target.left);
+    console.log(hit, target.left);
+    console.log(accuracy);
+}
+
+    //test case
+//    if(accuracy < 50){
+//        randomAlert();
+//        $("#playingBall").addClass("swish");
+//        setTimeout(function(){
+//            shotSuccess(currentBox);
+//            modalActive();
+//            (".square").remove();
+//            return;
+//        }, 2600)
+//    }
+//    else{
+//        $("#playingBall").addClass("tooShort");
+//        setTimeout(function(){
+//            modalActive();
+//            (".square").remove();
+//            return;
+//        }, 2600)
+//    }
+//
+//}
