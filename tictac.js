@@ -72,7 +72,7 @@ function randomAlert(com){
     }
     else{
         var r = Math.floor(Math.random()* wiff.length);
-        displayAlert(wiff[r][0],"warn" );
+        displayAlert(wiff[r][0],"warn", wiff[r][1] );
     }
 }
 

@@ -60,9 +60,10 @@ function shotMade(hit){
 var boom = new Audio("audio/boomshaka.mp3");
 var downtown = new Audio("audio/downtown.mp3");
 var onfire = new Audio("audio/onfire.mp3");
+var heckler = new Audio("audio/boo.mp3");
 var alert = [["Boomshakala",boom],["From DOWNTOWN", downtown],["He's on fire", onfire]];
 var wiff = [["Airrball", heckler],["a Big Miss", heckler],["wheres the focus", heckler]];
-var heckler = new Audio("audio/boo.mp3");
+
 
 
 function togglePlayerSymbols(){
