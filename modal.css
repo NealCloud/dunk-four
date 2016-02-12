@@ -312,3 +312,24 @@
         left:47.5%;
     }
 }
+
+.gamebtn {
+    padding: 10px 15px;
+    font-size: 20px;
+    text-align: center;
+    cursor: pointer;
+    outline: none;
+    color: #fffb1d;
+    background-color: #8e04af;
+    border: none;
+    border-radius: 15px;
+}
+
+.gamebtn:hover {
+    background-color: #af6944;
+}
+
+.gamebtn:active {
+    background-color: #8e04af;
+    transform: translateY(4px);
+}

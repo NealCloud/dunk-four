@@ -384,6 +384,26 @@
         .board{
             font-size: 70px;
         }
+        .gamebtn {
+            padding: 10px 15px;
+            font-size: 20px;
+            text-align: center;
+            cursor: pointer;
+            outline: none;
+            color: #fffb1d;
+            background-color: #8e04af;
+            border: none;
+            border-radius: 15px;
+        }
+
+        .gamebtn:hover {
+            background-color: #af6944;
+        }
+
+        .gamebtn:active {
+            background-color: #8e04af;
+            transform: translateY(4px);
+        }
     </style>
 
     <script src="https://code.jquery.com/jquery-2.1.4.js"></script>
@@ -411,7 +431,7 @@
                     <div class="label">Away Team</div>
                     <div class="value"></div>
                 </div>
-                <button id="start" type="submit">Start</button>
+                <button class="gamebtn" id="start" type="submit">Start</button>
             </div>
 
         </header>
@@ -453,7 +473,7 @@
                 <div id="playingBall">
                     <img id="ball" src="http://i618.photobucket.com/albums/tt264/martenfisher/basketball.png">
                 </div>
-                <button id="shot">SHOOT</button>
+                <button class="gamebtn" id="shot">SHOOT</button>
             </div>
             <div class="modal-footer">
                 <h3></h3>
