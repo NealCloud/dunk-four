@@ -61,6 +61,7 @@ function removeWinAnimation(){
     $("#crowd2").empty();
     $(".board").empty("");
     $(".board").removeClass("lights").removeAttr("height");
+    $(".message h1").html('');
 
 }
 
@@ -129,7 +130,7 @@ var wiff = [["Airrball",boom],["a Big Miss", downtown],["wheres the focus", onfi
 function randomAlert(com){
     if(com == "good"){
         var r = Math.floor(Math.random()* alert.length);
-        displayAlert(alert[r][0],"warn", alert[r][1]);
+        displayAlert(alert[r][0],"success", alert[r][1]);
     }
     else{
         var r = Math.floor(Math.random()* wiff.length);
