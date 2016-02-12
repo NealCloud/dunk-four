@@ -169,7 +169,7 @@ $(document).ready(function(){
     $("#shot").click(function(){
         var num =$('.aimer').offset();
         shotMade(num.left);
-        $("#net").addClass("rimshake");
+
     })
 });
 

@@ -82,6 +82,7 @@ function createShotAttempt(){ //
     modalActive();
     $("#playingBall").removeClass("tooShort");
     $("#playingBall").removeClass("swish");
+    $("#net").removeClass("rimshake");
     $("#shot").show();
     $(".modal-footer").html("");
     var shotTarget = $('<div>',{
@@ -116,11 +117,12 @@ function shotMade(hit){
     if(accuracy < 50){
         randomAlert("good");
         $("#playingBall").addClass("swish");
+        $("#net").addClass("rimshake");
         setTimeout(function(){
             shotSuccess(currentBox);
             modalActive();
             return;
-        }, 2600)
+        }, 2700)
     }
     else{
         randomAlert("bad");
@@ -129,7 +131,7 @@ function shotMade(hit){
             modalActive();
             togglePlayerSymbols();
             return;
-        }, 2600)
+        }, 2700)
     }
 
 }
