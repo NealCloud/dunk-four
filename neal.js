@@ -25,3 +25,5 @@ vertical(board) return false or "x"
 leftToRightDiagonal(board) return false or "x"
 rightToLeftDiagonal(board) return false or "x"
 checkWin() return false or x/o + i
+reererere how ya doin toniiiightf
+fdsfsfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsd
