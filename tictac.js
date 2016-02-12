@@ -157,6 +157,7 @@ function boxDimensions(number,box){
 $(document).ready(function(){
 //        A button to Start the Game
     $("#start").click(function(){
+        removeWinAnimation();
         $('.board').html('');
         $('.away .home').removeClass('current_team');
         var getNumberBoxes = prompt("Enter the number of squares you want: 3 4 5");

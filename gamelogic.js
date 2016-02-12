@@ -56,6 +56,13 @@ function winAnimation(){
 
     }, 2000)
 }
+function removeWinAnimation(){
+    $("#crowd").empty();
+    $("#crowd2").empty();
+    $(".board").empty("");
+    $(".board").removeClass("lights").removeAttr("height");
+
+}
 
 function createShotAttempt(){
 
