@@ -1,10 +1,12 @@
-//holds modal hiding
-function modalActive(){
-    var modal = $("#mode0" );
+//toggles the shot modal which allows user to make a shot
+function modalActive(){ //no returns, utility
+    var modal = $("#mode0" ); //jquery method to check if hidden
     if ( modal.is( ":hidden" ) ) {
+        // pointing to a jquery selector in a variable modal previously declared
         modal.css( "display", "block" );
     }
     else{
+        // pointing to a jquery selector in a variable modal previously declared
         modal.css( "display", "none");
     }
 }
@@ -12,22 +14,25 @@ function modalActive(){
 function displayAlert(text, type, sound){
     var message = null;
     if(type == "warn"){
+        // pointing to a jquery selector in a variable message previously declared
         message = $("#alert");
-        message.removeClass("success");
+        message.removeClass("success"); //toggling classes
         message.addClass("warning");
     }
     else{
+        // pointing to a jquery selector in variable message previously declared
         message = $("#alert");
         message.removeClass("warning");
         message.addClass("success")
     }
     if(sound){
-        sound.play();
+        sound.play(); // variable sound calls on play audio function
     }
-    $("#alert h1").text(text);
+    $("#alert h1").text(text);  //displays commentator message
 }
-
-function winAnimation(){
+//
+function winAnimation(){ // displays which player wins and displays crowd imgs and audio
+    //animates images
     if(player1score > player2score){
         $(".board").text("HOME TEAM WINS!!!");
     }
@@ -38,8 +43,8 @@ function winAnimation(){
         $(".board").text("ITS A DRAW");
         return;
     }
-    $("#alert").slideUp("slow");
-    $("#crowd").html("<audio autoplay loop><source src='audio/readyforthis.mp3' type='audio/mpeg'></audio>");
+    $("#alert").slideUp("slow"); // jquery method which animates the hide
+    $("#crowd").html("<audio autoplay loop><source src='audio/readyforthis.mp3' type='audio/mpeg'></audio>"); //used jquery to append html to the crowd
 
     setTimeout(function(){
         var img = $('<div>',{
@@ -56,23 +61,23 @@ function winAnimation(){
 
     }, 2000)
 }
-function removeWinAnimation() {
-    $("#crowd").empty();
+function removeWinAnimation() { //removes the winning display
+    $("#crowd").empty();  //jquery method .empty removes all child elements from the selectors
     $("#crowd2").empty();
     $(".board").empty("");
     $(".board").removeClass("lights").removeAttr("height");
     $(".message h1").html('');
-    player1score = 0;
+    player1score = 0;  //added player1score and player2scores to reset score
     player2score = 0;
     $(".home .value").text(player1score);
     $(".away .value").text(player2score);
-    clearInterval(countdownClock);
+    clearInterval(countdownClock);//calls clearInterval function with parameter countdownClock
     notStarted = true;
     $("#alert").show();
 
 }
 
-function createShotAttempt(){
+function createShotAttempt(){ //
 
     modalActive();
     $("#playingBall").removeClass("tooShort");

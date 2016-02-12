@@ -25,4 +25,6 @@ vertical(board) return false or "x"
 leftToRightDiagonal(board) return false or "x"
 rightToLeftDiagonal(board) return false or "x"
 checkWin() return false or x/o + i
+
 this is neals code
+
