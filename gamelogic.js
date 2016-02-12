@@ -61,6 +61,8 @@ function removeWinAnimation(){
     $("#crowd2").empty();
     $(".board").empty("");
     $(".board").removeClass("lights").removeAttr("height");
+    clearInterval(countdownClock);
+    notStarted = true;
 
 }
 
