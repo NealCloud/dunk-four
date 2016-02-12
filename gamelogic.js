@@ -56,12 +56,15 @@ function winAnimation(){
 
     }, 2000)
 }
-function removeWinAnimation(){
+function removeWinAnimation() {
     $("#crowd").empty();
     $("#crowd2").empty();
     $(".board").empty("");
     $(".board").removeClass("lights").removeAttr("height");
     $(".message h1").html('');
+    clearInterval(countdownClock);
+    notStarted = true;
+    $("#alert").show();
 
 }
 
