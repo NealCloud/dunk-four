@@ -88,7 +88,7 @@ function shotMade(hit){
             shotSuccess(currentBox);
             modalActive();
             return;
-        }, 2000)
+        }, 2600)
     }
     else{
         $("#playingBall").addClass("tooShort");
@@ -96,7 +96,7 @@ function shotMade(hit){
             modalActive();
             togglePlayerSymbols();
             return;
-        }, 2000)
+        }, 2600)
     }
 
 }

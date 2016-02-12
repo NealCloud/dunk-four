@@ -133,7 +133,11 @@ $(document).ready(function(){
     $("#start").click(function(){
         $('.board').html('');
         $('.away .home').removeClass('current_team');
-        startGame(3); //change to take input value = to board size;
+        var getNumberBoxes = prompt("Enter the number of squares you want: 3 4 5");
+        while(getNumberBoxes < 3 || getNumberBoxes > 5){
+            getNumberBoxes = prompt("Incorrect number: Only 3 4 5");
+        }
+        startGame(getNumberBoxes); //change to take input value = to board size;
     });
     $("#shot").click(function(){
         var num =$('.aimer').offset();
