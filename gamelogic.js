@@ -1,5 +1,44 @@
-function createShotAttempt(){ //
+//    global variables
+//    player1turn turn is on
+var player1turn = true;
+//    the current mark made default x;
+var currentMark = "x";
+//    the current Symbol used;
+var currentSymbol = "<img src='Images/ABAball.png'>";
+var player1Symbol = "<img src='Images/ABAball.png'>";
+var player2Symbol = "<img src='Images/bball.png'>";
+//    player1turn's mark;
+var player1mark = "x";
+//    player2's mark;
+var player2mark = "o";
+// first board set to null after board function is made;
+var board = [["","",""],["","",""],["","",""]];
+var draw = 0;
+var player1score = 0;
+var player2score = 0;
 
+var currentBox;
+var countdownClock = 0;
+var notStarted = true;
+
+// click the box function
+function clicked(targ) {
+//        takes element clicked id
+    console.log("clicked " + targ);
+//        splits id into row and column according to array position
+    //    calls the function checkClicked to see if a box was already clicked
+    if (!$(targ).html()) {
+        currentBox = targ;
+        createShotAttempt();
+        // return true if there is already text in the box
+    }
+    else {
+        console.log("filled");
+        return;
+    }
+}
+
+function createShotAttempt(){
     modalActive();
     $("#playingBall").removeClass("tooShort");
     $("#playingBall").removeClass("swish");
@@ -24,7 +63,6 @@ function createShotAttempt(){ //
     var random = Math.floor(Math.random()* 400);
     $(".target").css("left", random + "px");
 
-
 }
 
 function shotMade(hit){
@@ -32,9 +70,7 @@ function shotMade(hit){
     //the range is 86 - 475
     var target = $(".target").offset();
     var accuracy = Math.abs(hit - target.left);
-    console.log(hit, target.left);
-    console.log(accuracy);
-
+    //console.log(accuracy);
     //test case
     if(accuracy < 50){
         randomAlert("good");
@@ -44,7 +80,7 @@ function shotMade(hit){
             shotSuccess(currentBox);
             modalActive();
             return;
-        }, 2700)
+        }, 1800)
     }
     else{
         randomAlert("bad");
@@ -53,55 +89,7 @@ function shotMade(hit){
             modalActive();
             togglePlayerSymbols();
             return;
-        }, 2700)
-    }
-
-}
-var boom = new Audio("audio/boomshaka.mp3");
-var downtown = new Audio("audio/downtown.mp3");
-var onfire = new Audio("audio/onfire.mp3");
-var heckler = new Audio("audio/boo.mp3");
-var alert = [["Boomshakala",boom],["From DOWNTOWN", downtown],["He's on fire", onfire]];
-var wiff = [["Airrball", heckler],["a Big Miss", heckler],["wheres the focus", heckler]];
-
-
-
-function togglePlayerSymbols(){
-//        if player 1 turn
-    if(player1turn){
-//            set current mark and symbol to player2 and toggle player boolean
-        currentMark = player2mark;
-        currentSymbol = player2Symbol;
-        player1turn = false;
-        $('.away').removeClass('current_team');
-        $('.home').addClass('current_team');
-    }
-//        must be players 2 turn
-    else{
-//            switch back current mark/symbol to player 1 and toggle player boolean;
-        currentMark = player1mark;
-        currentSymbol = player1Symbol;
-        player1turn = true;
-        $('.home').removeClass('current_team');
-        $('.away').addClass('current_team');
-
-    }
-}
-
-// click the box function
-function clicked(targ) {
-//        takes element clicked id
-    console.log("clicked " + targ);
-//        splits id into row and column according to array position
-    //    calls the function checkClicked to see if a box was already clicked
-    if (!$(targ).html()) {
-        currentBox = targ;
-        createShotAttempt();
-        // return true if there is already text in the box
-    }
-    else {
-        console.log("filled");
-        return;
+        }, 1800)
     }
 }
 
@@ -125,7 +113,6 @@ function shotSuccess(targ){
         $(".away .value").text(player2score);
     }
 
-
     if (checkWin(board)) {
         $('.board').html('YOU WIN');
         winAnimation();
@@ -134,136 +121,32 @@ function shotSuccess(targ){
     togglePlayerSymbols();
 }
 
-
-
-//toggles the shot modal which allows user to make a shot
-function modalActive(){ //no returns, utility
-    var modal = $("#mode0" ); //jquery method to check if hidden
-    if ( modal.is( ":hidden" ) ) {
-        // pointing to a jquery selector in a variable modal previously declared
-        modal.css( "display", "block" );
+function togglePlayerSymbols(){
+//        if player 1 turn
+    if(player1turn){
+//            set current mark and symbol to player2 and toggle player boolean
+        currentMark = player2mark;
+        currentSymbol = player2Symbol;
+        player1turn = false;
+        $('.away').removeClass('current_team');
+        $('.home').addClass('current_team');
     }
+//        must be players 2 turn
     else{
-        // pointing to a jquery selector in a variable modal previously declared
-        modal.css( "display", "none");
-    }
-}
+//            switch back current mark/symbol to player 1 and toggle player boolean;
+        currentMark = player1mark;
+        currentSymbol = player1Symbol;
+        player1turn = true;
+        $('.home').removeClass('current_team');
+        $('.away').addClass('current_team');
 
-//
-
-
-
-
-
-
-
-function horizontal (board) {
-    var x; var o;
-    var bLen = board.length;
-
-    for(var i = 0; i < bLen ; i++){
-        x = 0;
-        o = 0;
-        for(var j = 0; j < bLen ; j++ ){
-            if (board[i][j] == "x"){
-                x += 1;
-            }
-            else if (board[i][j] == "o"){
-                o += 1;
-            }
-
-        }
-        if(x == bLen){
-            return "X";
-
-        }
-        else if(o == bLen){
-            return "O";
-        }
-
-    }
-    return false;
-}
-
-function vertical(board){
-    var x; var o;
-    var bLen = board.length;
-    for(var i = 0;i < bLen; i++){
-        x = 0;
-        o = 0;
-        for(var j = 0; j < bLen; j++){
-            if(board[j][i] == "x"){
-                x += 1;
-            }
-            else if(board[j][i] == "o"){
-                o += 1;
-            }
-        }
-        if(x == bLen){
-            return "X";
-        }
-        else if(o == bLen){
-            return "O";
-        }
-    }
-    return false;
-}
-
-function leftToRightDiagonal(array) {
-    var counterX = 0;
-    var counterO = 0;
-    for (var i = 0; i < 1; i++) {
-        for (var j = 0; j < array.length; j++) {
-            if (array[i + j][j] == "x") {
-                counterX++;
-            }
-            else if(array[i + j][j] == "o"){
-                counterO++;
-            }
-        }
-    }
-
-    if(counterO == array.length){
-        return("O wins");
-    }
-    else if(counterX == array.length){
-        return("X wins");
-    }
-    else{
-        return false;
-    }
-}
-
-function rightToLeftDiagonal(array) {
-    var counterX = 0;
-    var counterO = 0;
-    for (var i = array.length - 1; i < array.length; i++) {
-        for (var j = 0; j < array.length; j++) {
-            if(array[i - j][j] == "o") {
-                counterO++;
-            }
-            else if(array[i - j][j] == "x"){
-                counterX++;
-            }
-        }
-    }
-    if(counterO == array.length){
-        return("O wins");
-    }
-    else if(counterX == array.length){
-        return("X wins");
-    }else{
-        return false;
     }
 }
 
 
-var winConditions = [vertical, horizontal, rightToLeftDiagonal, leftToRightDiagonal];
 
-function checkWin(){
-    for(var i = 0; i < winConditions.length; i++){
-        var a = winConditions[i](board);
-        if(a) return a + i;
-    }
-    return false;
-}
+
+
+
+
+

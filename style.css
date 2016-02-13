@@ -1,0 +1,90 @@
+
+.gamebtn {
+    padding: 10px 15px;
+    font-size: 20px;
+    text-align: center;
+    cursor: pointer;
+    outline: none;
+    color: #fffb1d;
+    background-color: #022842;
+    border: none;
+    border-radius: 15px;
+}
+
+.gamebtn:hover {
+    background-color: #af6944;
+}
+
+.gamebtn:active {
+    background-color: #8e04af;
+    transform: translateY(4px);
+}
+
+/*Main Game and Stats Styling*/
+.away{
+    float: left;
+    font-size: 3vmax;
+    /*background-image: url(Images/ABAball.png);*/
+    /*background-repeat: no-repeat;*/
+}
+.home{
+    float: right;
+    font-size: 3vmax;
+    /*background-image: url(Images/bball.png);*/
+    /*background-repeat: no-repeat;*/
+    align-items: center;
+    justify-content: center;
+}
+.current_team{
+    color:yellow;
+}
+
+#stats-container{
+    text-transform: uppercase;
+}
+
+header {
+    width: 100%;
+    height: 10%;
+    background-color: rgba(0, 0, 0, .3);
+    font-size: 16px;
+    color: white;
+    padding:.1%;
+    text-align: center;
+    font-family:scoreboard;
+}
+
+.board{
+    width: 800px;
+    height: 700px;
+    display: flex;
+    flex-flow: row wrap;
+    margin: 0 auto;
+    align-items: center;
+
+}
+.box{
+    text-align: center;
+    font-size: 80px;
+    /*width: 33%;*/
+    /*height: 200px;*/
+    border: none;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-image: url(Images/hoop.png);
+    width: 200px;
+    height: 200px;
+    background-repeat: no-repeat;
+
+}
+body {
+    box-sizing: border-box;
+    background: url("Images/hardwood.jpg");
+    background-size: cover;
+}
+@font-face {
+    font-family: scoreboard;
+    src: url(Images/scoreboard.ttf);
+}
