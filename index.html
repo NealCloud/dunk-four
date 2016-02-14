@@ -18,7 +18,9 @@
             <h1>VERY INSANE DOGS TIC TAC TOE</h1>
             <div id="stats-container">
                 <div class="home">
-                    <img src="Images/ABAball.png" alt="">
+                    <div class="logo">
+                        <img src="Images/ABAball.png" alt="logo">
+                    </div>
                     <div class="label">Home Team</div>
                     <div class="value"></div>
                 </div>
@@ -27,7 +29,9 @@
                     <div class="value"></div>
                 </div>
                 <div class="away">
-                    <img src="Images/bball.png" alt="">
+                    <div class="logo">
+                        <img src="Images/ABAball.png" alt="logo">
+                    </div>
                     <div class="label">Away Team</div>
                     <div class="value"></div>
                 </div>
@@ -53,7 +57,7 @@
 <!--commentator-->
     <div id="alert" class="success message"><img src="images/reporter.png" alt=""><h1></h1></div>
 <!--hidden modal-->
-    <div id="mode0" class="modal">
+    <div id="shotmodal" class="modal">
         <div class="modal-content">
             <div class="modal-header">
                 <span class="close"></span>
@@ -74,6 +78,33 @@
             </div>
         </div>
     </div>
+        <div id="startModal" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <span class="close"></span>
+                    <h2>Shot Maker</h2>
+                </div>
+            <div class="modal-body">
+                    <select id="team1" name="team1">
+                        <option value="0">Lakers</option>
+                        <option value="1">Heat</option>
+                        <option value="2">Mavericks</option>
+                        <option value="3">Celtics</option>
+                    </select>
+                    <select id="team2" name="team2">
+                        <option value="0">Pacers</option>
+                        <option value="1">Celtics</option>
+                        <option value="2">Mavericks</option>
+                        <option value="3">Celtics</option>
+                    </select>
+                    <select id="gamesize" name="size">
+                        <option value="3">3x3</option>
+                        <option value="4">4x4</option>
+                        <option value="5">5x5</option>
+                    </select>
+                    <button id="startgame">Start</button>
+            </div>
+        </div>
 </div>
 </body>
 </html>

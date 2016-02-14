@@ -3,16 +3,22 @@
 var player1turn = true;
 //    the current mark made default x;
 var currentMark = "x";
+
+
+var awayTeam = ["Images/lakers.png","Images/heat.png","Images/mavericks.svg","Images/celtics.png"];
+var homeTeam = ["Images/pacers.png","Images/heat.png","Images/mavericks.svg","Images/celtics.png"];
 //    the current Symbol used;
-var currentSymbol = "<img src='Images/ABAball.png'>";
-var player1Symbol = "<img src='Images/ABAball.png'>";
-var player2Symbol = "<img src='Images/bball.png'>";
+var currentSymbol = homeTeam[0];
+var player1Symbol = homeTeam[0];
+var player2Symbol = awayTeam[0];
 //    player1turn's mark;
 var player1mark = "x";
 //    player2's mark;
 var player2mark = "o";
 // first board set to null after board function is made;
-var board = [["","",""],["","",""],["","",""]];
+//var board = [["","",""],["","",""],["","",""]];
+var gameBoard = [["x","","x"],["","",""],["","",""]];
+var match = 3;
 var draw = 0;
 var player1score = 0;
 var player2score = 0;
@@ -39,7 +45,7 @@ function clicked(targ) {
 }
 
 function createShotAttempt(){
-    modalActive();
+    modalActive("shotmodal");
     $("#playingBall").removeClass("tooShort");
     $("#playingBall").removeClass("swish");
     $("#net").removeClass("rimshake");
@@ -72,50 +78,56 @@ function shotMade(hit){
     var accuracy = Math.abs(hit - target.left);
     //console.log(accuracy);
     //test case
-    if(accuracy < 50){
+    if(accuracy){
         randomAlert("good");
         $("#playingBall").addClass("swish");
         $("#net").addClass("rimshake");
         setTimeout(function(){
             shotSuccess(currentBox);
-            modalActive();
+            modalActive("shotmodal");
             return;
-        }, 1800)
+        }, 100)
     }
     else{
         randomAlert("bad");
         $("#playingBall").addClass("tooShort");
         setTimeout(function(){
-            modalActive();
-            togglePlayerSymbols();
+            modalActive("shotmodal");
+            togglePlayerSymbols("shotmodal");
             return;
-        }, 1800)
+        }, 100)
     }
 }
 
 function shotSuccess(targ){
     var id = $(targ).attr("id");
-    var row = id[0];
-    var col = id[1];
+    var row = parseInt(id[0]);
+    var col = parseInt(id[1]);
 //        use the currentSymbol the mark the box
-    $(targ).html(currentSymbol);
 
+    while(row < gameBoard.length - 1 && gameBoard[row + 1][col] === ""){
+        ++row;
+    }
 //        set the board to row and column in array;
-    board[row][col] = currentMark;
+    gameBoard[row][col] = currentMark;
+    $("#" + row + col).html("<img src='" + currentSymbol + "'>");
 //        console the win check
-    console.log("board value: " + board[row][col]);
+
     if(player1turn){
-        player1score += 3;
+        player1score += 2;
         $(".home .value").text(player1score);
     }
     else{
-        player2score += 3;
+        player2score += 2;
         $(".away .value").text(player2score);
     }
+    updateDisplay();
+    if (checkWin(gameBoard, row, col, match)) {
+        if(player1turn){
+            player1score += 10;
+        }
+        else player2score += 10;
 
-    if (checkWin(board)) {
-        $('.board').html('YOU WIN');
-        winAnimation();
     }
 //        switch the symbols for player turn;
     togglePlayerSymbols();
@@ -128,8 +140,6 @@ function togglePlayerSymbols(){
         currentMark = player2mark;
         currentSymbol = player2Symbol;
         player1turn = false;
-        $('.away').removeClass('current_team');
-        $('.home').addClass('current_team');
     }
 //        must be players 2 turn
     else{
@@ -137,10 +147,8 @@ function togglePlayerSymbols(){
         currentMark = player1mark;
         currentSymbol = player1Symbol;
         player1turn = true;
-        $('.home').removeClass('current_team');
-        $('.away').addClass('current_team');
-
     }
+    updateDisplay();
 }
 
 

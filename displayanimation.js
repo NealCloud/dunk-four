@@ -5,11 +5,9 @@ var heckler = new Audio("audio/boo.mp3");
 var alert = [["Boomshakala",boom],["From DOWNTOWN", downtown],["He's on fire", onfire]];
 var wiff = [["Airrball", heckler],["a Big Miss", heckler],["wheres the focus", heckler]];
 
-
-
 //toggles the shot modal which allows user to make a shot
-function modalActive(){ //no returns, utility
-    var modal = $("#mode0" ); //jquery method to check if hidden
+function modalActive(mode){ //no returns, utility
+    var modal = $("#" + mode); //jquery method to check if hidden
     if ( modal.is( ":hidden" ) ) {
         // pointing to a jquery selector in a variable modal previously declared
         modal.css( "display", "block" );
@@ -19,7 +17,6 @@ function modalActive(){ //no returns, utility
         modal.css( "display", "none");
     }
 }
-
 
 function randomAlert(com){
     if(com == "good"){
@@ -51,6 +48,21 @@ function displayAlert(text, type, sound){
         sound.play(); // variable sound calls on play audio function
     }
     $("#alert h1").text(text);  //displays commentator message
+}
+
+function updateDisplay(){
+    if(player1turn){
+        $(".home").addClass("current_team");
+        $(".away").removeClass("current_team");
+        currentSymbol = player1Symbol;
+    }
+    else{
+        $(".away").addClass("current_team");
+        $(".home").removeClass("current_team");
+        currentSymbol = player2Symbol;
+    }
+    $(".home .value").text(player1score);
+    $(".away .value").text(player2score);
 }
 
 function winAnimation(){ // displays which player wins and displays crowd imgs and audio
@@ -90,10 +102,7 @@ function removeWinAnimation() { //removes the winning display
     $(".board").empty("");
     $(".board").removeClass("lights").removeAttr("height");
     $(".message h1").html('');
-    player1score = 0;  //added player1score and player2scores to reset score
-    player2score = 0;
-    $(".home .value").text(player1score);
-    $(".away .value").text(player2score);
+
     clearInterval(countdownClock);//calls clearInterval function with parameter countdownClock
     notStarted = true;
     $("#alert").show();
