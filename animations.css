@@ -129,7 +129,7 @@
     width: 100% !important;
     left: 300%;
     top: 300%;
-    animation: dunk 3s ease-in .1s 1;
+    animation: dunk 2s ease-in .1s 1;
 }
 .dunk2{
     position:absolute;

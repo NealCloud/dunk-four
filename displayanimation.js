@@ -68,10 +68,10 @@ function dunkAnimation(column){
     var id = "#0" + column;
     var kobe = $("<img>",{
         src: "Images/kobedunk2.png",
-        class: "dunk2"
-    })
+        class: "dunk"
+    });
     console.log(id);
-    $("#00").append(kobe);
+    kobe.append(id);
 
     //setTimeout(function(){
     //    $("#0" + column).html("");

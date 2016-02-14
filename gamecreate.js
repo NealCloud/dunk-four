@@ -33,7 +33,7 @@ $(document).ready(function(){
 
 //    starts the game take in a number
 function startGame(num){
-//        creates number of div boxes and a board array;
+//  creates number of div boxes and a board array;
     createBoxes(num);
     gameBoard = createBoardArray(num);  //placeholder for board array create
 //passing a click handler to each box to activate the click function;
