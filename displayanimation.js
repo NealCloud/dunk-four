@@ -64,6 +64,33 @@ function updateDisplay(){
     $(".home .value").text(player1score);
     $(".away .value").text(player2score);
 }
+function dunkAnimation(column){
+    var id = "#0" + column;
+    var kobe = $("<img>",{
+        src: "Images/kobedunk2.png",
+        class: "dunk2"
+    })
+    console.log(id);
+    $("#00").append(kobe);
+
+    //setTimeout(function(){
+    //    $("#0" + column).html("");
+    //    var img2 = $("<img>", {
+    //        src: 'Images/kobedunk.png',
+    //        class: "dunk2"
+    //    });
+    //    $("#0" + column).append(img2);
+    //    setTimeout(function(){
+    //        $("#0" + column).html("");
+    //        var img2 = $("<img>", {
+    //            src: 'Images/kobedunk.png',
+    //            class: "dunk2"
+    //        });
+    //        $("#0" + column).append(img2);
+    //
+    //    },1000);
+    //},3000);
+}
 
 function winAnimation(){ // displays which player wins and displays crowd imgs and audio
     //animates images
@@ -91,8 +118,6 @@ function winAnimation(){ // displays which player wins and displays crowd imgs a
         $("#crowd2").append(img2);
         $(".board").css("height", "67vh");
         $(".board").addClass("lights");
-
-
     }, 2000)
 }
 
@@ -106,5 +131,4 @@ function removeWinAnimation() { //removes the winning display
     clearInterval(countdownClock);//calls clearInterval function with parameter countdownClock
     notStarted = true;
     $("#alert").show();
-
 }

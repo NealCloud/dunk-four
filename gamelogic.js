@@ -3,7 +3,7 @@
 var player1turn = true;
 //    the current mark made default x;
 var currentMark = "x";
-
+var connectFour = false;
 
 var awayTeam = ["Images/lakers.png","Images/heat.png","Images/mavericks.svg","Images/celtics.png"];
 var homeTeam = ["Images/pacers.png","Images/heat.png","Images/mavericks.svg","Images/celtics.png"];
@@ -99,14 +99,37 @@ function shotMade(hit){
     }
 }
 
+function dunked(){
+    modalActive("shotmodal");
+    var id = $(currentBox).attr("id");
+    var col = parseInt(id[1]);
+    dunkAnimation(col);
+
+    for(var i = 0; i < gameBoard.length; i++){
+        $("#" + (i) + col).html("");
+    }
+    if(player1turn){
+        player1score += 2;
+        $(".home .value").text(player1score);
+    }
+    else{
+        player2score += 2;
+        $(".away .value").text(player2score);
+    }
+
+    updateDisplay();
+    togglePlayerSymbols();
+}
+
 function shotSuccess(targ){
     var id = $(targ).attr("id");
     var row = parseInt(id[0]);
     var col = parseInt(id[1]);
 //        use the currentSymbol the mark the box
-
-    while(row < gameBoard.length - 1 && gameBoard[row + 1][col] === ""){
-        ++row;
+    if(connectFour) {
+        while (row < gameBoard.length - 1 && gameBoard[row + 1][col] === "") {
+            ++row;
+        }
     }
 //        set the board to row and column in array;
     gameBoard[row][col] = currentMark;

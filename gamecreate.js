@@ -4,9 +4,15 @@ $(document).ready(function(){
         removeWinAnimation();
         modalActive("startModal");
     });
-    $("#shot").click(function(){
+    $("#shot3").click(function(){
         var num =$('.aimer').offset();
         shotMade(num.left);
+    })
+    $("#shot2").click(function(){
+
+    })
+    $("#shot1").click(function(){
+       dunked();
     })
 
     $("#startgame").click(function(){
@@ -71,10 +77,13 @@ function createBoxes(num){
         for(var col = 0; col < num; col++){
 //                creates a box element with an id equal to its row and column in the board array;
             var box = $("<div>",{
-                id: row + "" + col,
-                class: "box"
+                class: "box",
+                id: row + "" + col
                 //html: "<img src='" + currentSymbol + "'>"
             });
+            if(row == 0){
+                $(box).addClass("backboard");
+            }
             boxDimensions(num,box);
             $(box).appendTo(".board");
         }
@@ -90,13 +99,12 @@ function createBoardArray(number){
     var gameArray = [];
 
     for (var row = 0; row < number; row++) {
-        var pushArray = [];
-        //gameArray.push(pushArray);
-        for(var col = 0; col < number; col++) {
+        var rowArray = [];
 
-            pushArray.push("");
+        for(var col = 0; col < number; col++) {
+            rowArray.push("");
         }
-        gameArray.push(pushArray);
+        gameArray.push(rowArray);
     }
     return gameArray;
 }

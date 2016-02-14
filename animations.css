@@ -41,8 +41,6 @@
     right: 5%;
 }
 
-
-
 /*crowd animations*/
 #crowd img{
     position: absolute;
@@ -94,12 +92,8 @@
     animation: lights 3s linear infinite alternate;
 }
 @keyframes lights {
-    from {
-        background-position: 0 0;
-    }
-    to {
-        background-position: 880px 0;
-    }
+    from {   background-position: 0 0; }
+    to {  background-position: 880px 0;   }
 }
 
 /*Target Meter Animation*/
@@ -122,12 +116,42 @@
     position: relative;
     width: 300px;
     height: 50px;
-
 }
+
 @keyframes move {
-    9% {left:0px;} 100% {left:400px;}
+    9% {left:0px;}
+    100% {left:400px;}
 }
 
+/*dunk animation*/
+.dunk{
+    position:absolute;
+    width: 100% !important;
+    left: 300%;
+    top: 300%;
+    animation: dunk 3s ease-in .1s 1;
+}
+.dunk2{
+    position:absolute;
+    width: 100% !important;
+    top: 42%;
+    left:26%;
+}
+
+@keyframes dunk {
+    0%{
+        left: 300%;
+        top: 300%;
+    }
+    70% {
+        top: -30%;
+        left:150%;
+    }
+    100% {
+        top: 42%;
+        left:26%;
+    }
+}
 /*Shot Animations*/
 #hoopNet{
     position:relative;
@@ -135,8 +159,6 @@
     width:7%;
     top:10%;
     height:10%;
-
-
 }
 
 #rim{
