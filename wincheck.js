@@ -20,10 +20,10 @@ function checkWin(board, r, c, match){
         //reset points to one after each search is performed
         points = 1;
         //calls a search in one direction
-        points = searchMatches(board, points, row, col, marker, callstack[i][0], callstack[i][1]);
+        points = searchMatches(points, row, col,callstack[i][0], callstack[i][1]);
         if( matchCheck()) return true;
         //call a search in opposite direction
-        points = searchMatches(board, points, row, col, marker, callstack[i+1][0], callstack[i+1][1]);
+        points = searchMatches(points, row, col, callstack[i+1][0], callstack[i+1][1]);
         if( matchCheck()) return true;
     }
     //check if enough matches have been found and aborts search
@@ -34,32 +34,33 @@ function checkWin(board, r, c, match){
     }
     //nothing found return false
     return false;
-}
-//params: board array, points integer, starting row and column integers, marker string(x or o),
-// 2 direction integers for row and column
-function searchMatches(board, points, row, col, marker, increment, increment2){
-    while(true) {
-        //searches through array depending on the direction increment given [0 no moves, 1 moves forward, -1 moves backward]
-        row += increment;
-        col += increment2;
-        //return if enough matches found;
-        if(points == match){
-            return points;
+
+    //params: points integer, starting row and column integers, 2 direction integers for row and column
+    function searchMatches( numpoint, numrow, numcol, direction, direction2){
+        while(true) {
+            //searches through array depending on the direction increment given [0 no moves, 1 moves forward, -1 moves backward]
+            numrow += direction;
+            numcol += direction2;
+            //return if enough matches found;
+            if(numpoint == match){
+                break;
+            }
+            //make sure its still in array boundary;
+            else if(numrow > board.length - 1 || numrow < 0 || numcol > board.length - 1 || numcol < 0){
+                break;
+            }
+            //check if no match found
+            else if( marker != board[numrow][numcol]){
+                break;
+            }
+            //check if match found could be default else
+            else if (marker == board[numrow][numcol]){
+                numpoint++;
+            }
         }
-        //make sure its still in array boundary;
-        else if(row > board.length - 1 || row < 0 || col > board.length - 1 || col < 0){
-            break;
-        }
-        //check if no match found
-        else if( marker != board[row][col]){
-            break;
-        }
-        //check if match found
-        else if (marker == board[row][col]){
-            points++;
-        }
+        //return points after loop is done
+        return numpoint;
     }
-    //return points after loop is done
-    return points;
 }
+
 

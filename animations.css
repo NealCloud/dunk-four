@@ -37,6 +37,10 @@
     animation-iteration-count: infinite;
 }
 #alert img{
+    animation-name: popup;
+    animation-duration:1s;
+    animation-timing-function:linear;
+    animation-iteration-count: infinite;
     position: absolute;
     right: 5%;
 }
@@ -137,6 +141,50 @@
     top: 42%;
     left:26%;
 }
+#balldrop{
+    position: absolute;
+    animation: drop 1.3s ease-in .1s 1;
+    top: 26%;
+    left:46%;
+    width: 25%;
+}
+.explode{
+    background: url("Images/blowup.png");
+}
+
+.symbolDrop{
+    position: absolute;
+    top: -100%;
+    animation: dropIn 2s ease-in .1s 1;
+}
+
+@keyframes drop {
+    0%{
+        top: 26%;
+        left:46%;
+        transform: rotateZ(0deg);
+    }
+    20% {
+        top: 5%;
+        left:30%;
+        transform: rotateZ(820deg);
+    }
+    100% {
+        top: 800%;
+    }
+}
+
+@keyframes dropIn {
+    0%{
+        top: -100%;
+        transform: rotateZ(0deg);
+    }
+    100% {
+        top: 50%;
+        transform: rotateZ(360deg);
+    }
+}
+
 
 @keyframes dunk {
     0%{

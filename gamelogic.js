@@ -1,40 +1,58 @@
-//    global variables
-//    player1turn turn is on
-var player1turn = true;
-//    the current mark made default x;
-var currentMark = "x";
-var connectFour = false;
+Data = {
+    player1turn: true,
+    currentMark: "x",
+    connectFour: false,
+    boom : new Audio("audio/boomshaka.mp3"),
+    downtown : new Audio("audio/downtown.mp3"),
+    onfire : new Audio("audio/onfire.mp3"),
+    heckler : new Audio("audio/boo.mp3"),
+    alert : [["Boomshakala",this.boom],["From DOWNTOWN", this.downtown],["He's on fire", this.onfire]],
+    wiff : [["Airrball", this.heckler],["a Big Miss", this.heckler],["wheres the focus", this.heckler]],
 
-var awayTeam = ["Images/lakers.png","Images/heat.png","Images/mavericks.svg","Images/celtics.png"];
-var homeTeam = ["Images/pacers.png","Images/heat.png","Images/mavericks.svg","Images/celtics.png"];
-//    the current Symbol used;
-var currentSymbol = homeTeam[0];
-var player1Symbol = homeTeam[0];
-var player2Symbol = awayTeam[0];
-//    player1turn's mark;
-var player1mark = "x";
-//    player2's mark;
-var player2mark = "o";
-// first board set to null after board function is made;
-//var board = [["","",""],["","",""],["","",""]];
-var gameBoard = [["x","","x"],["","",""],["","",""]];
-var match = 3;
-var draw = 0;
-var player1score = 0;
-var player2score = 0;
+    awayTeam: ["Images/lakers.png","Images/heat.png","Images/mavericks.svg","Images/celtics.png"],
+    homeTeam: ["Images/pacers.png","Images/heat.png","Images/mavericks.svg","Images/celtics.png"],
+    //    the current Symbol used;
+    currentSymbol : null,
+    player1Symbol : null,
+    player2Symbol : null,
+    //    player1turn's mark;
+    player1mark : "x",
+    //    player2's mark;
+    player2mark : "o",
+    // first board set to null after board function is made;
+    //var board = [["","",""],["","",""],["","",""]];
+    gameBoard : [["x","","x"],["","",""],["","",""]],
+    match : 3,
+    boardFill : 0,
+    player1score : 0,
+    player2score : 0,
+    currentBox: null,
+    countdownClock : 0,
+    shotClock: 0,
+    notStarted : true,
+    kobe : $("<img>",{
+        src: "Images/kobedunk2.png",
+        class: "dunk"
+    }),
+    kobe2 : $("<img>",{
+        src: "Images/kobedunk.png",
+        class: "dunk2"
+    }),
+    ball : $("<img>",{
+        src: "Images/bball.png",
+        id: "balldrop"
+    }),
+    topBox: null
+}
 
-var currentBox;
-var countdownClock = 0;
-var notStarted = true;
 
 // click the box function
 function clicked(targ) {
-//        takes element clicked id
-    console.log("clicked " + targ);
+
 //        splits id into row and column according to array position
     //    calls the function checkClicked to see if a box was already clicked
     if (!$(targ).html()) {
-        currentBox = targ;
+        Data.currentBox = targ;
         createShotAttempt();
         // return true if there is already text in the box
     }
@@ -83,7 +101,7 @@ function shotMade(hit){
         $("#playingBall").addClass("swish");
         $("#net").addClass("rimshake");
         setTimeout(function(){
-            shotSuccess(currentBox);
+            shotSuccess(Data.currentBox);
             modalActive("shotmodal");
             return;
         }, 100)
@@ -101,56 +119,79 @@ function shotMade(hit){
 
 function dunked(){
     modalActive("shotmodal");
-    var id = $(currentBox).attr("id");
+    var id = $(Data.currentBox).attr("id");
     var col = parseInt(id[1]);
     dunkAnimation(col);
 
-    for(var i = 0; i < gameBoard.length; i++){
-        $("#" + (i) + col).html("");
-    }
-    if(player1turn){
-        player1score += 2;
-        $(".home .value").text(player1score);
+
+    if(Data.player1turn){
+        Data.player1score += 2;
+        $(".home .value").text(Data.player1score);
     }
     else{
-        player2score += 2;
-        $(".away .value").text(player2score);
+        Data.player2score += 2;
+        $(".away .value").text(Data.player2score);
     }
 
     updateDisplay();
     togglePlayerSymbols();
 }
 
+function destroyRow(col){
+    for(var i = 0; i < Data.gameBoard.length; i++){
+        $("#" + (i) + col).addClass("explode");
+    }
+    //for(var i = 0; i < Data.gameBoard.length; i++){
+    //
+    //    $("#" + (i) + col).fadeOut("slow", function() {
+    //        $(this).removeClass("explode");
+    //    });
+    //}
+}
+
 function shotSuccess(targ){
+    //get row and col info from element id
     var id = $(targ).attr("id");
     var row = parseInt(id[0]);
     var col = parseInt(id[1]);
-//        use the currentSymbol the mark the box
-    if(connectFour) {
-        while (row < gameBoard.length - 1 && gameBoard[row + 1][col] === "") {
+//  if connect Four increment down to last unused row
+    if(Data.connectFour) {
+        while (row < Data.gameBoard.length - 1 && Data.gameBoard[row + 1][col] === "") {
             ++row;
         }
     }
-//        set the board to row and column in array;
-    gameBoard[row][col] = currentMark;
-    $("#" + row + col).html("<img src='" + currentSymbol + "'>");
-//        console the win check
+//  set the game board to current players mark value inside row and column numbers provided;
+    Data.gameBoard[row][col] = Data.currentMark;
+    //create and append an image to game board with current Player Symbol
+    var img = $("<img>",
+        {
+            src: Data.currentSymbol
+        })
+    $("#0" + col).append(Data.ball);
 
-    if(player1turn){
-        player1score += 2;
-        $(".home .value").text(player1score);
+   // $("#0" + col).remove(Data.ball);
+    //remove the drop animation;
+    setTimeout(function(){
+
+        $("#" + row + col).append(img);
+        $(Data.ball).remove();
+    },1300)
+
+    if(Data.player1turn){
+        Data.player1score += 2;
+        $(".home .value").text(Data.player1score);
     }
     else{
-        player2score += 2;
-        $(".away .value").text(player2score);
+        Data.player2score += 2;
+        $(".away .value").text(Data.player2score);
     }
-    updateDisplay();
-    if (checkWin(gameBoard, row, col, match)) {
-        if(player1turn){
-            player1score += 10;
-        }
-        else player2score += 10;
 
+    updateDisplay();
+    if (checkWin(Data.gameBoard, row, col, Data.match)) {
+        if(Data.player1turn){
+            Data.player1score += 10;
+        }
+        else Data.player2score += 10;
     }
 //        switch the symbols for player turn;
     togglePlayerSymbols();
@@ -158,18 +199,18 @@ function shotSuccess(targ){
 
 function togglePlayerSymbols(){
 //        if player 1 turn
-    if(player1turn){
+    if(Data.player1turn){
 //            set current mark and symbol to player2 and toggle player boolean
-        currentMark = player2mark;
-        currentSymbol = player2Symbol;
-        player1turn = false;
+        Data.currentMark = Data.player2mark;
+        Data.currentSymbol = Data.player2Symbol;
+        Data.player1turn = false;
     }
 //        must be players 2 turn
     else{
 //            switch back current mark/symbol to player 1 and toggle player boolean;
-        currentMark = player1mark;
-        currentSymbol = player1Symbol;
-        player1turn = true;
+        Data.currentMark = Data.player1mark;
+        Data.currentSymbol = Data.player1Symbol;
+        Data.player1turn = true;
     }
     updateDisplay();
 }

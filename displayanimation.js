@@ -1,9 +1,3 @@
-var boom = new Audio("audio/boomshaka.mp3");
-var downtown = new Audio("audio/downtown.mp3");
-var onfire = new Audio("audio/onfire.mp3");
-var heckler = new Audio("audio/boo.mp3");
-var alert = [["Boomshakala",boom],["From DOWNTOWN", downtown],["He's on fire", onfire]];
-var wiff = [["Airrball", heckler],["a Big Miss", heckler],["wheres the focus", heckler]];
 
 //toggles the shot modal which allows user to make a shot
 function modalActive(mode){ //no returns, utility
@@ -20,12 +14,12 @@ function modalActive(mode){ //no returns, utility
 
 function randomAlert(com){
     if(com == "good"){
-        var r = Math.floor(Math.random()* alert.length);
-        displayAlert(alert[r][0],"success", alert[r][1]);
+        var r = Math.floor(Math.random()* Data.alert.length);
+        displayAlert(Data.alert[r][0],"success", Data.alert[r][1]);
     }
     else{
-        var r = Math.floor(Math.random()* wiff.length);
-        displayAlert(wiff[r][0],"warn", wiff[r][1] );
+        var r = Math.floor(Math.random()* Data.wiff.length);
+        displayAlert(Data.wiff[r][0],"warn", Data.wiff[r][1] );
     }
 }
 
@@ -51,53 +45,57 @@ function displayAlert(text, type, sound){
 }
 
 function updateDisplay(){
-    if(player1turn){
+    if(Data.player1turn){
         $(".home").addClass("current_team");
         $(".away").removeClass("current_team");
-        currentSymbol = player1Symbol;
+        Data.currentSymbol = Data.player1Symbol;
     }
     else{
         $(".away").addClass("current_team");
         $(".home").removeClass("current_team");
-        currentSymbol = player2Symbol;
+        Data.currentSymbol = Data.player2Symbol;
     }
-    $(".home .value").text(player1score);
-    $(".away .value").text(player2score);
+
+    $(".home .value").text(Data.player1score);
+    $(".away .value").text(Data.player2score);
 }
 function dunkAnimation(column){
-    var id = "#0" + column;
-    var kobe = $("<img>",{
-        src: "Images/kobedunk2.png",
-        class: "dunk"
-    });
-    console.log(id);
-    kobe.append(id);
+    var id = $("#0" + column);
+    var off = id.offset();
+    id.append(Data.kobe);
+    setTimeout(function(){
+        $(Data.kobe).remove();
+        id.append(Data.kobe2);
+        id.append(Data.ball);
+        setTimeout(function(){
+            $(Data.kobe2).remove();
+            setTimeout(function(){
+                //$(Data.ball).remove();
+                setTimeout(function(){
+                    //destroyRow(column);
+                },1400);
+            },1400);
+        },500);
+    },2000);
+}
 
-    //setTimeout(function(){
-    //    $("#0" + column).html("");
-    //    var img2 = $("<img>", {
-    //        src: 'Images/kobedunk.png',
-    //        class: "dunk2"
-    //    });
-    //    $("#0" + column).append(img2);
-    //    setTimeout(function(){
-    //        $("#0" + column).html("");
-    //        var img2 = $("<img>", {
-    //            src: 'Images/kobedunk.png',
-    //            class: "dunk2"
-    //        });
-    //        $("#0" + column).append(img2);
-    //
-    //    },1000);
-    //},3000);
+function finishDunk(){
+
 }
 
 function winAnimation(){ // displays which player wins and displays crowd imgs and audio
     //animates images
-    if(player1score > player2score){
+    $(".board").addClass('winner');
+    if(Data.player1score > Data.player2score){
+        var img = $("<img>",
+            {
+                src: Data.currentSymbol,
+            })
+        $(".board").append(img);
+
         $(".board").text("HOME TEAM WINS!!!");
     }
-    else if(player1score < player2score){
+    else if(Data.player1score < Data.player2score){
         $(".board").text("AWAY TEAM WINS!!!");
     }
     else{
@@ -128,7 +126,7 @@ function removeWinAnimation() { //removes the winning display
     $(".board").removeClass("lights").removeAttr("height");
     $(".message h1").html('');
 
-    clearInterval(countdownClock);//calls clearInterval function with parameter countdownClock
-    notStarted = true;
+    clearInterval(Data.countdownClock);//calls clearInterval function with parameter countdownClock
+    Data.notStarted = true;
     $("#alert").show();
 }
