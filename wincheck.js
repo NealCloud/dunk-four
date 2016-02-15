@@ -1,6 +1,6 @@
-//Check Win work by comparing the starting value(x or o) in a nested array with the value of each cell next to it
+//Check Win works by comparing the starting value(x or o) in a nested array with the value of each cell next to it
 //using 8 while loops that count matches traveling horizontal, vertical, and diagonal  until
-// it hits something in each direction or reaches number of matches needed to win.
+// it hits something, goes out of bounds or reaches the number of matches needed to win.
 
 //Params: takes in a nested board array, the current row and current column position, and amount of matches needed to win
 //returns only true or false
@@ -28,14 +28,11 @@ function checkWin(board, r, c, match){
     }
     //check if enough matches have been found and aborts search
     function matchCheck(){
-        if(points == match){
-            return true;
-        }
+        return (points == match);
     }
-    //nothing found return false
-    return false;
 
     //params: points integer, starting row and column integers, 2 direction integers for row and column
+
     function searchMatches( numpoint, numrow, numcol, direction, direction2){
         while(true) {
             //searches through array depending on the direction increment given [0 no moves, 1 moves forward, -1 moves backward]
@@ -61,6 +58,8 @@ function checkWin(board, r, c, match){
         //return points after loop is done
         return numpoint;
     }
+    //nothing found return false
+    return false;
 }
 
 

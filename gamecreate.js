@@ -8,15 +8,17 @@ $(document).ready(function(){
 // 3 point shot button
     $("#shot3").click(function(){
         var num =$('.aimer').offset();
-        shotMade(num.left);
+        //shotMade(num.left);
+        shotMade(10);
     });
     //2 point shot button
     $("#shot2").click(function(){
-
+        console.log("yo");
+        shotMade(5);
     });
     //dunk button
     $("#shot1").click(function(){
-       dunked();
+       dunkedMiss();
     });
     //resets game
     $("#startgame").click(function(){
@@ -36,8 +38,9 @@ $(document).ready(function(){
         //checks if size greater than 6 and assigns matches needed
         Data.match = size > 6 ? 4 : 3;
         //if match > 3 enable connect 4 mode
-        Data.connectFour = Data.match > 3 ? true: false;
+        Data.connectFour = (Data.match > 3);
         //start game with board size
+        var m = $("#homemeter").val();
         startGame(size);
     })
 });
@@ -58,9 +61,17 @@ function startGame(num){
         // TODO: create timer input options
         Data.notStarted = false;
         //takes variable storage, duration, display element, ending function
-        countdown("countdownClock", 120, ".timer .value", function(){
+        countdown("countdownClock", 310, ".timer .value", function(){
             //when timer ends call winAnimation;
-            winAnimation();
+            if(Data.player1score > Data.player2score){
+               winAnimation("home");
+            }
+            else if(Data.player1score < Data.player2score){
+                winAnimation("away");
+            }
+            else{
+                winAnimation("draw");
+            }
         });
     }
 }
@@ -92,6 +103,8 @@ function countdown(holder, duration, display, callback){
 
 function createBoxes(num){
 //        creates the boxes in html depending on number
+    var size = (parseInt(100/num) -.4) + "%";
+
     for(var row = 0; row < num; row++){
         for(var col = 0; col < num; col++){
 //                creates a box element with an id equal to its row and column in the board array;
@@ -104,16 +117,10 @@ function createBoxes(num){
                 $(box).addClass("backboard");
             }
             //check box dimensions
-            boxDimensions(num,box);
+            box.css({"width":size,"height":size});
             $(box).appendTo(".board");
         }
     }
-}
-
-// takes in element
-function boxDimensions(number,box){
-    var size = (parseInt(100/number) -.4) + "%";
-    box.css({"width":size,"height":size});
 }
 
 function createBoardArray(number){

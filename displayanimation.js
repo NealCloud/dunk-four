@@ -1,5 +1,5 @@
 
-//toggles the shot modal which allows user to make a shot
+//toggles a modal depending on id given
 function modalActive(mode){ //no returns, utility
     var modal = $("#" + mode); //jquery method to check if hidden
     if ( modal.is( ":hidden" ) ) {
@@ -11,20 +11,15 @@ function modalActive(mode){ //no returns, utility
         modal.css( "display", "none");
     }
 }
-
-function randomAlert(com){
-    if(com == "good"){
-        var r = Math.floor(Math.random()* Data.alert.length);
-        displayAlert(Data.alert[r][0],"success", Data.alert[r][1]);
-    }
-    else{
-        var r = Math.floor(Math.random()* Data.wiff.length);
-        displayAlert(Data.wiff[r][0],"warn", Data.wiff[r][1] );
-    }
+//uses announcerDisplay and an array to display random phrases and sounds
+function randomAnnouncerDisplay(com, type){
+    var r = Math.floor(Math.random()* com[1].length);
+    announcerDisplay(com[r][0], type, com[r][1]);
 }
 
-//takes in the text color and sound to display;
-function displayAlert(text, type, sound){
+//uses the alert element to display information
+//params: text to display, string("warn", success"), sound object
+function announcerDisplay(text, type, sound){
     var message = null;
     if(type == "warn"){
         // pointing to a jquery selector in a variable message previously declared
@@ -43,7 +38,7 @@ function displayAlert(text, type, sound){
     }
     $("#alert h1").text(text);  //displays commentator message
 }
-
+// updates the score stats on the title and lights up current team
 function updateDisplay(){
     if(Data.player1turn){
         $(".home").addClass("current_team");
@@ -59,22 +54,52 @@ function updateDisplay(){
     $(".home .value").text(Data.player1score);
     $(".away .value").text(Data.player2score);
 }
+//kobe dunking animation  takes the column integer to dunk on
 function dunkAnimation(column){
     var id = $("#0" + column);
     var off = id.offset();
+    // a chain of timeout and appends the kobe images stored in a jquery holder
+    // uses css animation keyframes
     id.append(Data.kobe);
     setTimeout(function(){
         $(Data.kobe).remove();
-        id.append(Data.kobe2);
-        id.append(Data.ball);
+        id.append(Data.kobe2, Data.ball);
+        setTimeout(function(){
+            //loop through columns and destory symbols and make explosions
+            for(var i = 0; i < Data.gameBoard.length; i++){
+                $("#" + (i) + column).addClass("explode");
+                $("#" + (i) + column).empty();
+            }
+            $(Data.kobe2).remove();
+            setTimeout(function(){
+                $(Data.ball).remove();
+                //destroyRow(column);
+                setTimeout(function(){
+                //remove explosions;
+                for(var i = 0; i < Data.gameBoard.length; i++){
+                    $("#" + (i) + column).removeClass("explode");
+                }
+                },1000);
+            },800);
+        },500);
+    },2000);
+}
+
+function dunkAnimationMiss(column){
+    var id = $("#0" + column);
+    // a chain of timeout and appends the kobe images stored in a jquery holder
+    // uses css animation keyframes
+    id.append(Data.kobe, Data.kobe3);
+    setTimeout(function(){
+        $(Data.kobe).remove();
+
+        id.append(Data.kobe2, Data.ballmiss);
         setTimeout(function(){
             $(Data.kobe2).remove();
             setTimeout(function(){
-                //$(Data.ball).remove();
-                setTimeout(function(){
-                    //destroyRow(column);
-                },1400);
-            },1400);
+                $(Data.kobe3).remove();
+                $(Data.ballmiss).remove();
+            },800);
         },500);
     },2000);
 }
@@ -83,19 +108,18 @@ function finishDunk(){
 
 }
 
-function winAnimation(){ // displays which player wins and displays crowd imgs and audio
+function winAnimation(player){ // displays which player wins and displays crowd imgs and audio
     //animates images
     $(".board").addClass('winner');
-    if(Data.player1score > Data.player2score){
-        var img = $("<img>",
-            {
-                src: Data.currentSymbol,
-            })
-        $(".board").append(img);
-
+    var symbol = $("<img>",
+        {
+            src: Data.currentSymbol,
+        });
+    if(player == "home"){
+        $(".board").append(symbol);
         $(".board").text("HOME TEAM WINS!!!");
     }
-    else if(Data.player1score < Data.player2score){
+    else if(player == "away"){
         $(".board").text("AWAY TEAM WINS!!!");
     }
     else{

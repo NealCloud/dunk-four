@@ -141,6 +141,13 @@
     top: 42%;
     left:26%;
 }
+.block{
+    position: absolute;
+    width: 100% !important;
+    left: -300%;
+    top: 300%;
+    animation: block 3s ease-in .1s 1;
+}
 #balldrop{
     position: absolute;
     animation: drop 1.3s ease-in .1s 1;
@@ -148,8 +155,17 @@
     left:46%;
     width: 25%;
 }
+#ballmiss{
+    position: absolute;
+    animation: miss 1.3s ease-in .1s 1;
+    top: 26%;
+    left:46%;
+    width: 25%;
+}
+
 .explode{
-    background: url("Images/blowup.png");
+    background-size: contain;
+    background-image: url("Images/blowup.png");
 }
 
 .symbolDrop{
@@ -173,6 +189,22 @@
         top: 800%;
     }
 }
+@keyframes miss {
+    0%{
+        top: 26%;
+        left:46%;
+        transform: rotateZ(0deg);
+    }
+    30% {
+        top: 5%;
+        left: 150%;
+        transform: rotateZ(820deg);
+    }
+    100% {
+        top: 800%;
+        left: 250%;
+    }
+}
 
 @keyframes dropIn {
     0%{
@@ -184,7 +216,6 @@
         transform: rotateZ(360deg);
     }
 }
-
 
 @keyframes dunk {
     0%{
@@ -198,6 +229,20 @@
     100% {
         top: 42%;
         left:26%;
+    }
+}
+@keyframes block {
+    0%{
+        left: -300%;
+        top: 300%;
+    }
+    70% {
+        top: -30%;
+        left:25%;
+    }
+    100% {
+        top: 30%;
+        left:45%;
     }
 }
 /*Shot Animations*/

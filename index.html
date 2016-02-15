@@ -17,7 +17,10 @@
         <header>
             <h1>VERY INSANE DOGS TIC TAC TOE</h1>
             <div id="stats-container">
+
                 <div class="home">
+                    <div class="dunkmeter">Dunk Power</div>
+                    <meter id="homemeter" value="9" high="7" min="0" max="10"></meter>
                     <div class="logo">
                         <img src="Images/ABAball.png" alt="logo">
                     </div>
@@ -29,9 +32,12 @@
                     <div class="value"></div>
                 </div>
                 <div class="away">
+
                     <div class="logo">
                         <img src="Images/ABAball.png" alt="logo">
                     </div>
+                    <div class="dunkmeter">Dunk Power</div>
+                    <meter value="9" min="0" max="10"></meter>
                     <div class="label">Away Team</div>
                     <div class="value"></div>
                 </div>
@@ -56,58 +62,75 @@
     <div id="crowd2"></div>
 <!--commentator-->
     <div id="alert" class="success message"><img src="images/reporter.png" alt=""><h1></h1></div>
-<!--hidden modal-->
-    <div id="shotmodal" class="modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <span class="close"></span>
-                <h2>Shot Maker</h2>
-            </div>
-            <div class="modal-body">
-                <div id="hoopNet">
-                    <img id=rim src="Images/backboard.png">
-                    <img id = "net" src="Images/steelnet.png">
+<!--hidden modals-->
+        <!--choose shot modal-->
+        <div id="shotPickModal" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <span class="close"></span>
+                    <h2>Choose your shot</h2>
                 </div>
-                <div id="playingBall">
-                    <img id="ball" src="Images/basketball.png">
+                <div class="modal-body">
+                    <!--<button class="gamebtn" id="shot2">2 pointer</button>-->
+                    <!--<button class="gamebtn" id="shot3">3 pointer</button>-->
+                    <!--<button class="gamebtn" id="shot1">Dunk!</button>-->
                 </div>
-                <button class="gamebtn" id="shot2">2 pointer</button>
-                <button class="gamebtn" id="shot3">3 pointer</button>
-                <button class="gamebtn" id="shot1">Dunk!</button>
-            </div>
-            <div class="modal-footer">
-                <h3></h3>
             </div>
         </div>
-    </div>
+        <!--shot modal-->
+        <div id="shotmodal" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <span class="close"></span>
+                    <h2>Shot Maker</h2>
+                </div>
+                <div class="modal-body">
+                    <div id="hoopNet">
+                        <img id=rim src="Images/backboard.png">
+                        <img id = "net" src="Images/steelnet.png">
+                    </div>
+                    <div id="playingBall">
+                        <img id="ball" src="Images/basketball.png">
+                    </div>
+                    <button class="gamebtn" id="shot2">2 pointer</button>
+                    <button class="gamebtn" id="shot3">3 pointer</button>
+                    <button class="gamebtn" id="shot1">Dunk!</button>
+                </div>
+                <div class="modal-footer">
+                    <h3></h3>
+                </div>
+            </div>
+        </div>
+        <!--menu modal-->
         <div id="startModal" class="modal">
             <div class="modal-content">
                 <div class="modal-header">
                     <span class="close"></span>
                     <h2>Shot Maker</h2>
                 </div>
-            <div class="modal-body">
-                    <select id="team1" name="team1">
-                        <option value="0">Lakers</option>
-                        <option value="1">Heat</option>
-                        <option value="2">Mavericks</option>
-                        <option value="3">Celtics</option>
-                    </select>
-                    <select id="team2" name="team2">
-                        <option value="0">Pacers</option>
-                        <option value="1">Celtics</option>
-                        <option value="2">Mavericks</option>
-                        <option value="3">Celtics</option>
-                    </select>
-                    <select id="gamesize" name="size">
-                        <option value="3">Tic-Tac-Toe Classic</option>
-                        <option value="6">Tic-Tac-Toe - 6x6</option>
-                        <option value="8">Connect 4 Classic</option>
-                        <option value="10">Connect 4 - 10x10</option>
-                    </select>
-                    <button id="startgame">Start</button>
+                <div class="modal-body">
+                        <select id="team1" name="team1">
+                            <option value="0">Lakers</option>
+                            <option value="1">Heat</option>
+                            <option value="2">Mavericks</option>
+                            <option value="3">Celtics</option>
+                        </select>
+                        <select id="team2" name="team2">
+                            <option value="0">Pacers</option>
+                            <option value="1">Celtics</option>
+                            <option value="2">Mavericks</option>
+                            <option value="3">Celtics</option>
+                        </select>
+                        <select id="gamesize" name="size">
+                            <option value="3">Tic-Tac-Toe Classic</option>
+                            <option value="6">Tic-Tac-Toe - 6x6</option>
+                            <option value="8">Connect 4 Classic</option>
+                            <option value="10">Connect 4 - 10x10</option>
+                        </select>
+                        <button id="startgame">Start</button>
+                </div>
             </div>
         </div>
-</div>
+
 </body>
 </html>

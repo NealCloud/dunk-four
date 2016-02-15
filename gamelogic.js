@@ -5,10 +5,13 @@ Data = {
     boom : new Audio("audio/boomshaka.mp3"),
     downtown : new Audio("audio/downtown.mp3"),
     onfire : new Audio("audio/onfire.mp3"),
+    dunk1 : new Audio("audio/dunk1.mp3"),
+    dunkjam : new Audio("audio/dunkjam.mp3"),
+    retire : new Audio("audio/dunkretire.mp3"),
+    tobig : new Audio("audio/tobigtofast.mp3"),
+    face : new Audio("audio/face.mp3"),
+    shoes : new Audio("audio/shoes.mp3"),
     heckler : new Audio("audio/boo.mp3"),
-    alert : [["Boomshakala",this.boom],["From DOWNTOWN", this.downtown],["He's on fire", this.onfire]],
-    wiff : [["Airrball", this.heckler],["a Big Miss", this.heckler],["wheres the focus", this.heckler]],
-
     awayTeam: ["Images/lakers.png","Images/heat.png","Images/mavericks.svg","Images/celtics.png"],
     homeTeam: ["Images/pacers.png","Images/heat.png","Images/mavericks.svg","Images/celtics.png"],
     //    the current Symbol used;
@@ -38,14 +41,25 @@ Data = {
         src: "Images/kobedunk.png",
         class: "dunk2"
     }),
+    kobe3 : $("<img>",{
+        src: "Images/kobedunk2.png",
+        class: "block"
+    }),
     ball : $("<img>",{
         src: "Images/bball.png",
         id: "balldrop"
     }),
-    topBox: null
+    ballmiss : $("<img>",{
+        src: "Images/bball.png",
+        id: "ballmiss"
+    }),
+    topBox: null,
+    timerMode: false
 }
-
-
+var alert = [["Boomshakala!!!!",Data.boom],["From DOWNTOWN!!!", Data.downtown],["He's on fire!!", Data.onfire]];
+var wiff =[["Airrrrballll!!!", Data.heckler],["A Big Miss!!", Data.heckler],["Wheres the focus at??", Data.heckler]];
+var dunkalert = [["A SPECTACULAR DUNK!!!", Data.dunk1],["JAMS IT IN!!!!!!", Data.dunkjam],["Consider retiring after being Dunked on like that", Data.retire]];
+var dunkblock = [["ouch to the face", Data.face],["To Big to Fast to get by", Data.tobig],["Maybe its the shoes", Data.shoes]];
 // click the box function
 function clicked(targ) {
 
@@ -64,18 +78,21 @@ function clicked(targ) {
 
 function createShotAttempt(){
     modalActive("shotmodal");
+
     $("#playingBall").removeClass("tooShort");
     $("#playingBall").removeClass("swish");
     $("#net").removeClass("rimshake");
+
     $("#shot").show();
+
     $(".modal-footer").html("");
+
     var shotTarget = $('<div>',{
         class: "target"
     });
     var shotAimer = $('<div>',{
         class: "aimer"
     });
-
     var shotbox = $('<div>',{
         class: "backboard",
     });
@@ -96,9 +113,9 @@ function shotMade(hit){
     var accuracy = Math.abs(hit - target.left);
     //console.log(accuracy);
     //test case
-    if(accuracy){
-        randomAlert("good");
-        $("#playingBall").addClass("swish");
+    if(hit == 10){
+        randomAnnouncerDisplay(alert);
+        $("#playingBall").addClass("swish" , "success");
         $("#net").addClass("rimshake");
         setTimeout(function(){
             shotSuccess(Data.currentBox);
@@ -107,23 +124,22 @@ function shotMade(hit){
         }, 100)
     }
     else{
-        randomAlert("bad");
+        randomAnnouncerDisplay(wiff, "warn");
         $("#playingBall").addClass("tooShort");
         setTimeout(function(){
+            shotMiss(Data.currentBox);
             modalActive("shotmodal");
-            togglePlayerSymbols("shotmodal");
             return;
         }, 100)
     }
 }
-
+//TODO make check for meter power and apply approriate accuracy attempt;
 function dunked(){
     modalActive("shotmodal");
     var id = $(Data.currentBox).attr("id");
     var col = parseInt(id[1]);
     dunkAnimation(col);
-
-
+    randomAnnouncerDisplay(dunkalert, "success");
     if(Data.player1turn){
         Data.player1score += 2;
         $(".home .value").text(Data.player1score);
@@ -137,16 +153,15 @@ function dunked(){
     togglePlayerSymbols();
 }
 
-function destroyRow(col){
-    for(var i = 0; i < Data.gameBoard.length; i++){
-        $("#" + (i) + col).addClass("explode");
-    }
-    //for(var i = 0; i < Data.gameBoard.length; i++){
-    //
-    //    $("#" + (i) + col).fadeOut("slow", function() {
-    //        $(this).removeClass("explode");
-    //    });
-    //}
+function dunkedMiss(){
+    modalActive("shotmodal");
+    var id = $(Data.currentBox).attr("id");
+    var col = parseInt(id[1]);
+    dunkAnimationMiss(col);
+    randomAnnouncerDisplay(dunkblock, "warn");
+
+    updateDisplay();
+    togglePlayerSymbols();
 }
 
 function shotSuccess(targ){
@@ -193,6 +208,22 @@ function shotSuccess(targ){
         }
         else Data.player2score += 10;
     }
+//        switch the symbols for player turn;
+    togglePlayerSymbols();
+}
+
+function shotMiss(targ){
+    //get row and col info from element id
+    var id = $(targ).attr("id");
+    var col = parseInt(id[1]);
+    $("#0" + col).append(Data.ballmiss);
+
+    // $("#0" + col).remove(Data.ball);
+    //remove the drop animation;
+    setTimeout(function(){
+        $(Data.ballmiss).remove();
+    },1100)
+
 //        switch the symbols for player turn;
     togglePlayerSymbols();
 }
