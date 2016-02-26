@@ -8,7 +8,7 @@ $(document).ready(function(){
         removeWinAnimation();
         modalActive("startModal");
     });
-    //
+    // board button delegates when boxes are clicked
     $(".board").on("click",".box",function(){
         clicked(this);
     });
@@ -28,7 +28,7 @@ $(document).ready(function(){
         createShotAttempt("slowaim");
         Data.currentShotValue = 2;
     });
-    //dunk button
+    //dunk select button
     $("#dunk").click(function(){
         Data.currentShotValue = 2;
         if(Data.player1turn){
@@ -40,7 +40,7 @@ $(document).ready(function(){
             $("#awaymeter").val(0);
         }
     });
-    //resets game variables and assigns logos and starts game
+    //resets game button, reset variables, assigns team logos and starts game
     $("#startgame").click(function(){
         //assigns symbol based on drop down menu value
         Data.player1Symbol = Data.homeTeam[$('#team1').val()];

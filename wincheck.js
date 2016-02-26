@@ -1,9 +1,13 @@
-//Check Win works by comparing the starting value(x or o) in a nested array with the value of each cell next to it
-//using 8 while loops that count matches traveling horizontal, vertical, and diagonal  until
-// it hits something, goes out of bounds or reaches the number of matches needed to win.
 
-//Params: takes in a nested board array, the current row and current column position, and amount of matches needed to win
-//returns only true or false
+/**
+ Function: Check win:
+ Check Win works by comparing the starting value(x or o) in a nested array with the value of each cell next to it
+ using 8 while loops that count matches traveling horizontal, vertical, and diagonal  until
+ it hits something, goes out of bounds or reaches the number of matches needed to win.
+ Params: board - a nested array, r - integer row number, c - integer column number, match - integer number to return true
+ returns: only true or false if enough matches found;
+* */
+
 function checkWin(board, r, c, match){
     //turns the starting column and row coordinates into Integers
     var col = parseInt(c);
@@ -60,13 +64,3 @@ function checkWin(board, r, c, match){
     return false;
 }
 
-
-/**
- I'm Sorry, but I don't see this relationship progressing much further, being around people all the time drains me
- and I don't have much of a desire to go out much anymore and just want to focus on coding sorry to waste your time.
-
-
- *
- * This is probably the last chance in life to something so I
- * will put everyything I have into this over anything else.
-* */
