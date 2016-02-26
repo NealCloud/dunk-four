@@ -119,23 +119,27 @@ function dunkAnimationMiss(column){
 /**
  * function: winAnimation - victory animation
  * params: player - string("home" or "away") of winner
+ * TODO: make a css class to display winning team more , also make a draw ending
  * */
 function winAnimation(player){ // displays which player wins and displays crowd imgs and audio
     //animates images
-    $(".board").addClass('winner');
-    var symbol = $("<img>",
+    $(".board").empty();
+    var symbol = $("<div>",
         {
-            src: Data.currentSymbol,
+            class: "winner",
+            html: "<image src='" + Data.currentSymbol + "'>"
         });
+
+    $(".board").append(symbol);
     if(player == "home"){
-        $(".board").append(symbol);
-        $(".board").text("HOME TEAM WINS!!!");
+
+        $(".winner").text("HOME TEAM WINS!!!");
     }
     else if(player == "away"){
-        $(".board").text("AWAY TEAM WINS!!!");
+        $(".winner").text("AWAY TEAM WINS!!!");
     }
     else{
-        $(".board").text("ITS A DRAW");
+        $(".winner").text("ITS A DRAW BORING");
         return;
     }
     $("#alert").slideUp("slow"); // jquery method which animates the hide
@@ -143,11 +147,12 @@ function winAnimation(player){ // displays which player wins and displays crowd 
 
     setTimeout(function(){
         var img = $('<div>',{
+            class: "fade",
             html: "<image id='backc' src='Images/crowd2.png'><image id='frontc' src='Images/crowd1.png'>"
-        })
+        });
         var img2 = $('<div>',{
             html: "<image id='backc' src='Images/crowd2.png'><image id='frontc' src='Images/crowd1.png'>"
-        })
+        });
         $("#crowd").append(img);
         $("#crowd2").append(img2);
         $(".board").css("height", "67vh");
@@ -161,7 +166,7 @@ function winAnimation(player){ // displays which player wins and displays crowd 
 function removeWinAnimation() { //removes the winning display
     $("#crowd").empty();  //jquery method .empty removes all child elements from the selectors
     $("#crowd2").empty();
-    $(".board").empty("");
+    $(".board").empty();
     $(".board").removeClass("lights").removeAttr("height");
     $(".message h1").html('');
 

@@ -55,6 +55,7 @@ $(document).ready(function(){
         modalActive("startModal");
         Data.player1score = 0;
         Data.player2score = 0;
+        Data.drawCount = 0;
         $("#homemeter").val(0);
         $("#awaymeter").val(0);
         updateDisplay();
@@ -131,7 +132,7 @@ function countdown(holder, duration, display, callback){
 }
 /**
 * function: createBoxes
- * params: num
+ * params: num - creates html divs with corresponding ids to col and row depending on size of board needed
 * */
 function createBoxes(num){
 //        creates the boxes in html depending on number
@@ -154,7 +155,10 @@ function createBoxes(num){
         }
     }
 }
-
+/**
+ * function: create Boardarray
+ * params: number - creates a nested board array depending on size of board needed
+ * */
 function createBoardArray(number){
     var gameArray = [];
     for (var row = 0; row < number; row++) {

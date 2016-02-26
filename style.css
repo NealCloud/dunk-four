@@ -110,3 +110,13 @@ select{
     border: 1px solid #ecd724;
     height: 34px;
 }
+.fade{
+    opacity: .7;
+}
+.winner{
+    width: 100%;
+    font-size: 80px;
+    opacity: .8;
+    color: #9fff1a;
+    font-family: 'Lucida Grande', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
