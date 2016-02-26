@@ -1,29 +1,50 @@
-//most button event handlers go in here
+/**
+ * Document Ready: creates button event handlers
+ *
+ * */
 $(document).ready(function(){
 //        A button to Start the Game
     $("#start").click(function(){
         removeWinAnimation();
         modalActive("startModal");
     });
-// 3 point shot button
-    $("#shot3").click(function(){
-        var num =$('.aimer').offset();
-        //shotMade(num.left);
-        shotMade(10);
+    //
+    $(".board").on("click",".box",function(){
+        clicked(this);
     });
-    //2 point shot button
-    $("#shot2").click(function(){
-        console.log("yo");
-        shotMade(5);
+    //shot button
+    $("#shot").click(function(){
+        var num = $('.aimer').offset();
+        shotMade(num.left);
+        modalActive("shotPickModal");
+    });
+// 3 point shot select
+    $("#3point").click(function(){
+        createShotAttempt("fastaim")
+        Data.currentShotValue = 3;
+    });
+    //2 point shot select
+    $("#2point").click(function(){
+        createShotAttempt("slowaim");
+        Data.currentShotValue = 2;
     });
     //dunk button
-    $("#shot1").click(function(){
-       dunkedMiss();
+    $("#dunk").click(function(){
+        Data.currentShotValue = 2;
+        if(Data.player1turn){
+            dunkAttempt($("#homemeter").val(), Data.player2score - Data.player1score);
+            $("#homemeter").val(0);
+        }
+        else{
+            dunkAttempt($("#awaymeter").val(), Data.player1score - Data.player2score);
+            $("#awaymeter").val(0);
+        }
     });
-    //resets game
+    //resets game variables and assigns logos and starts game
     $("#startgame").click(function(){
         //assigns symbol based on drop down menu value
         Data.player1Symbol = Data.homeTeam[$('#team1').val()];
+        console.log(Data.player1Symbol);
         Data.player2Symbol = Data.awayTeam[$('#team2').val()];
         //assigns size from dropdown menu
         var size = $('#gamesize').val();
@@ -34,6 +55,8 @@ $(document).ready(function(){
         modalActive("startModal");
         Data.player1score = 0;
         Data.player2score = 0;
+        $("#homemeter").val(0);
+        $("#awaymeter").val(0);
         updateDisplay();
         //checks if size greater than 6 and assigns matches needed
         Data.match = size > 6 ? 4 : 3;
@@ -44,39 +67,45 @@ $(document).ready(function(){
         startGame(size);
     })
 });
-
-//    starts the game take in a board size number
+/**
+ * function: startGame - creates game board and click events to boxes
+ * params: num - string("home" or "away") of winner
+ * */
 function startGame(num){
 //  creates the number of div boxes in html
     createBoxes(num);
     //creates empty board array
     Data.gameBoard = createBoardArray(num);
 //passes a click handler to each box class to activate the game logic
-    $(".box").click(function(){
-        clicked(this);
-    });
+
     //check if game has started
     if(Data.notStarted){
         //flag start and start countdown to 2 min
-        // TODO: create timer input options
+        var duration = $("#gametime").val();
+
         Data.notStarted = false;
         //takes variable storage, duration, display element, ending function
-        countdown("countdownClock", 310, ".timer .value", function(){
-            //when timer ends call winAnimation;
-            if(Data.player1score > Data.player2score){
-               winAnimation("home");
-            }
-            else if(Data.player1score < Data.player2score){
-                winAnimation("away");
-            }
-            else{
-                winAnimation("draw");
-            }
-        });
+        if(duration > 0){
+            countdown("countdownClock", duration, ".timer .value", function(){
+                //when timer ends call winAnimation;
+                if(Data.player1score > Data.player2score){
+                    winAnimation("home");
+                }
+                else if(Data.player1score < Data.player2score){
+                    winAnimation("away");
+                }
+                else{
+                    winAnimation("draw");
+                }
+            });
+        }
+        else $(".timer .value").text("unlimited");
     }
 }
-//Params: storage variable, duration integer, element display, function
-
+/**
+ * function: startGame - creates game board and click events to boxes
+ * params: holder: var to store Interval, duration: integer, display: element id, callback function
+ * */
 function countdown(holder, duration, display, callback){
     var minutes, seconds;
     //use pointer to assign interval variable;
@@ -100,7 +129,10 @@ function countdown(holder, duration, display, callback){
         }
     }, 1000);
 }
-
+/**
+* function: createBoxes
+ * params: num
+* */
 function createBoxes(num){
 //        creates the boxes in html depending on number
     var size = (parseInt(100/num) -.4) + "%";
@@ -114,7 +146,7 @@ function createBoxes(num){
             });
             //add backboard to top row
             if(row == 0){
-                $(box).addClass("backboard");
+                $(box).addClass("backboard backboardBox");
             }
             //check box dimensions
             box.css({"width":size,"height":size});

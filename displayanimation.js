@@ -1,15 +1,12 @@
 
-//toggles a modal depending on id given
-function modalActive(mode){ //no returns, utility
-    var modal = $("#" + mode); //jquery method to check if hidden
-    if ( modal.is( ":hidden" ) ) {
-        // pointing to a jquery selector in a variable modal previously declared
-        modal.css( "display", "block" );
-    }
-    else{
-        // pointing to a jquery selector in a variable modal previously declared
-        modal.css( "display", "none");
-    }
+
+/**
+ * Function: Toggles a modal depending on id given
+ * params: mode - string (id number);
+* */
+function modalActive(mode){
+    var modal = $("#" + mode);
+    $(modal).toggle();
 }
 //uses announcerDisplay and an array to display random phrases and sounds
 function randomAnnouncerDisplay(com, type){
@@ -17,6 +14,10 @@ function randomAnnouncerDisplay(com, type){
     announcerDisplay(com[r][0], type, com[r][1]);
 }
 
+/**
+ *Function: announcerDisplay plays green text and displays warning
+ * params: text(string any text message) type (string "warn" or "success"), sound(a sound object, taken from a variable)
+ * */
 //uses the alert element to display information
 //params: text to display, string("warn", success"), sound object
 function announcerDisplay(text, type, sound){
@@ -31,7 +32,7 @@ function announcerDisplay(text, type, sound){
         // pointing to a jquery selector in variable message previously declared
         message = $("#alert");
         message.removeClass("warning");
-        message.addClass("success")
+        message.addClass("success");
     }
     if(sound){
         sound.play(); // variable sound calls on play audio function
@@ -39,6 +40,10 @@ function announcerDisplay(text, type, sound){
     $("#alert h1").text(text);  //displays commentator message
 }
 // updates the score stats on the title and lights up current team
+/**
+ * function: updateDisplay
+ * params: none - toggles current team class and current symbol
+* */
 function updateDisplay(){
     if(Data.player1turn){
         $(".home").addClass("current_team");
@@ -54,7 +59,11 @@ function updateDisplay(){
     $(".home .value").text(Data.player1score);
     $(".away .value").text(Data.player2score);
 }
-//kobe dunking animation  takes the column integer to dunk on
+
+/**
+* function: dunkAnimation - kobe dunking animation
+ * params: column - integer of column to animate on
+* */
 function dunkAnimation(column){
     var id = $("#0" + column);
     var off = id.offset();
@@ -69,6 +78,7 @@ function dunkAnimation(column){
             for(var i = 0; i < Data.gameBoard.length; i++){
                 $("#" + (i) + column).addClass("explode");
                 $("#" + (i) + column).empty();
+                Data.gameBoard[i][column] = "";
             }
             $(Data.kobe2).remove();
             setTimeout(function(){
@@ -84,7 +94,10 @@ function dunkAnimation(column){
         },500);
     },2000);
 }
-
+/**
+ * function: dunkAnimationMiss - kobe missing his dunking animation
+ * params: column - integer of column to animate on
+ * */
 function dunkAnimationMiss(column){
     var id = $("#0" + column);
     // a chain of timeout and appends the kobe images stored in a jquery holder
@@ -103,11 +116,10 @@ function dunkAnimationMiss(column){
         },500);
     },2000);
 }
-
-function finishDunk(){
-
-}
-
+/**
+ * function: winAnimation - victory animation
+ * params: player - string("home" or "away") of winner
+ * */
 function winAnimation(player){ // displays which player wins and displays crowd imgs and audio
     //animates images
     $(".board").addClass('winner');
@@ -142,7 +154,10 @@ function winAnimation(player){ // displays which player wins and displays crowd 
         $(".board").addClass("lights");
     }, 2000)
 }
-
+/**
+ * function: removeWinAnimation - removes the crowd from the floor
+ * params: none- called when game is reset
+ * */
 function removeWinAnimation() { //removes the winning display
     $("#crowd").empty();  //jquery method .empty removes all child elements from the selectors
     $("#crowd2").empty();

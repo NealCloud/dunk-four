@@ -30,9 +30,7 @@ function checkWin(board, r, c, match){
     function matchCheck(){
         return (points == match);
     }
-
     //params: points integer, starting row and column integers, 2 direction integers for row and column
-
     function searchMatches( numpoint, numrow, numcol, direction, direction2){
         while(true) {
             //searches through array depending on the direction increment given [0 no moves, 1 moves forward, -1 moves backward]
@@ -63,3 +61,12 @@ function checkWin(board, r, c, match){
 }
 
 
+/**
+ I'm Sorry, but I don't see this relationship progressing much further, being around people all the time drains me
+ and I don't have much of a desire to go out much anymore and just want to focus on coding sorry to waste your time.
+
+
+ *
+ * This is probably the last chance in life to something so I
+ * will put everyything I have into this over anything else.
+* */

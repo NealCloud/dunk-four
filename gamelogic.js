@@ -12,8 +12,8 @@ Data = {
     face : new Audio("audio/face.mp3"),
     shoes : new Audio("audio/shoes.mp3"),
     heckler : new Audio("audio/boo.mp3"),
-    awayTeam: ["Images/lakers.png","Images/heat.png","Images/mavericks.svg","Images/celtics.png"],
-    homeTeam: ["Images/pacers.png","Images/heat.png","Images/mavericks.svg","Images/celtics.png"],
+    homeTeam: ["Images/lakers.png","Images/clippers.png","Images/mavericks.svg"],
+    awayTeam: ["Images/pacers.png","Images/heat.png", "Images/celtics.png"],
     //    the current Symbol used;
     currentSymbol : null,
     player1Symbol : null,
@@ -42,7 +42,7 @@ Data = {
         class: "dunk2"
     }),
     kobe3 : $("<img>",{
-        src: "Images/kobedunk2.png",
+        src: "Images/blocker.png",
         class: "block"
     }),
     ball : $("<img>",{
@@ -54,7 +54,8 @@ Data = {
         id: "ballmiss"
     }),
     topBox: null,
-    timerMode: false
+    timerMode: false,
+    currentShotValue: 2
 }
 var alert = [["Boomshakala!!!!",Data.boom],["From DOWNTOWN!!!", Data.downtown],["He's on fire!!", Data.onfire]];
 var wiff =[["Airrrrballll!!!", Data.heckler],["A Big Miss!!", Data.heckler],["Wheres the focus at??", Data.heckler]];
@@ -67,7 +68,7 @@ function clicked(targ) {
     //    calls the function checkClicked to see if a box was already clicked
     if (!$(targ).html()) {
         Data.currentBox = targ;
-        createShotAttempt();
+        openShotSelect();
         // return true if there is already text in the box
     }
     else {
@@ -76,7 +77,11 @@ function clicked(targ) {
     }
 }
 
-function createShotAttempt(){
+function openShotSelect(){
+    modalActive("shotPickModal");
+}
+
+function createShotAttempt(difficulty){
     modalActive("shotmodal");
 
     $("#playingBall").removeClass("tooShort");
@@ -88,13 +93,13 @@ function createShotAttempt(){
     $(".modal-footer").html("");
 
     var shotTarget = $('<div>',{
-        class: "target"
+        class: "target backboard"
     });
     var shotAimer = $('<div>',{
-        class: "aimer"
+        class: "aimer " + difficulty
     });
     var shotbox = $('<div>',{
-        class: "backboard",
+        class: "aimback",
     });
 
     shotbox.append(shotTarget, shotAimer);
@@ -107,13 +112,14 @@ function createShotAttempt(){
 }
 
 function shotMade(hit){
+
     $("#shot").hide();
     //the range is 86 - 475
     var target = $(".target").offset();
     var accuracy = Math.abs(hit - target.left);
-    //console.log(accuracy);
+    console.log("target data : " + target.left, hit, accuracy);
     //test case
-    if(hit == 10){
+    if(accuracy < 50){
         randomAnnouncerDisplay(alert);
         $("#playingBall").addClass("swish" , "success");
         $("#net").addClass("rimshake");
@@ -121,7 +127,7 @@ function shotMade(hit){
             shotSuccess(Data.currentBox);
             modalActive("shotmodal");
             return;
-        }, 100)
+        }, 1500)
     }
     else{
         randomAnnouncerDisplay(wiff, "warn");
@@ -130,22 +136,31 @@ function shotMade(hit){
             shotMiss(Data.currentBox);
             modalActive("shotmodal");
             return;
-        }, 100)
+        }, 1500)
     }
 }
-//TODO make check for meter power and apply approriate accuracy attempt;
+
+function dunkAttempt(num, c){
+
+    var r = Math.floor(Math.random()* 10) + c;
+    var d = (num/10 * 10);
+    r < d ? dunked() : dunkedMiss();
+    modalActive("shotPickModal");
+}
+
 function dunked(){
-    modalActive("shotmodal");
+
     var id = $(Data.currentBox).attr("id");
     var col = parseInt(id[1]);
     dunkAnimation(col);
     randomAnnouncerDisplay(dunkalert, "success");
     if(Data.player1turn){
-        Data.player1score += 2;
+        Data.player1score += Data.currentShotValue;
         $(".home .value").text(Data.player1score);
+
     }
     else{
-        Data.player2score += 2;
+        Data.player2score += Data.currentShotValue;
         $(".away .value").text(Data.player2score);
     }
 
@@ -154,10 +169,12 @@ function dunked(){
 }
 
 function dunkedMiss(){
-    modalActive("shotmodal");
+
     var id = $(Data.currentBox).attr("id");
     var col = parseInt(id[1]);
+
     dunkAnimationMiss(col);
+
     randomAnnouncerDisplay(dunkblock, "warn");
 
     updateDisplay();
@@ -193,12 +210,14 @@ function shotSuccess(targ){
     },1300)
 
     if(Data.player1turn){
-        Data.player1score += 2;
+        Data.player1score += Data.currentShotValue;
         $(".home .value").text(Data.player1score);
+        $("#homemeter").get(0).value+= Data.currentShotValue;
     }
     else{
-        Data.player2score += 2;
+        Data.player2score += Data.currentShotValue;
         $(".away .value").text(Data.player2score);
+        $("#awaymeter").get(0).value+= Data.currentShotValue;
     }
 
     updateDisplay();
