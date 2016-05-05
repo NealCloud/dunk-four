@@ -5,7 +5,7 @@
 A tic tac toe / connect 4 game.
 > make 3 or 4 baskets in row or vertical line to win
 
-- [Live Demo](http://nealcloud.github.io/dunk-four) 
+- [Live Demo](http://nealcloud.github.io/dunk-four/) 
 
 ### Features
   - player team selection
@@ -17,7 +17,9 @@ A tic tac toe / connect 4 game.
 ### Lessons Learned
  - making turns for team
  - how to check all rows and columns for a match in a nested list
+ 
 
+##### Script to Check for Win condition
 ##### parameters: a 'board' nested list [[],[],[]], numbers for the row and column starting point, and a string symbol 'X O' to check for match. 
 ```javascript
 function checkWin(board, r, c, match){
