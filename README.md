@@ -71,6 +71,11 @@ function checkWin(board, r, c, match){
 ### Bugs
  - Dunk meter sometimes not accurate
  
+### Team
+![Korey](https://github.com/klo09)
+![Mark](https://github.com/MarkJurkiewicz)
+Neal
+
 License
 ----
 MIT
