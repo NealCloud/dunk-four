@@ -1,5 +1,3 @@
-# hacka-tictactoe-athon
-
 # Dunk Four
 
 A tic tac toe / connect 4 game.
